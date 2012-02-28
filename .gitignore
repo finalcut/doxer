@@ -1,4 +1,4 @@
 *.tpl.*
-*.DS_Store*
+*DS_Store*
 cache.properties
 build
