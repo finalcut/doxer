@@ -1,0 +1,4 @@
+*.tpl.*
+*.DS_Store*
+cache.properties
+build
