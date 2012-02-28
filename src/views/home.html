@@ -1,0 +1,71 @@
+
+<h1>ABOUT</h1>
+	<p>
+	In an effort to make it as easy as possible for us to quickly get consistent and high-quality PHP applications delivered in a rapid manner this boilerplate application exists.  It is an MVC based application that has dependences as listed below.  <strong><em>Utilizing the comments</em></strong> throughout you should be able to get an application up and running quickly.
+	</p>
+
+
+<h1>DEPENDENCIES</h1>
+
+	<h2>f3 (fat free framework)</h2>
+		
+		<p>
+		This is a php MVC framework.  It should already be in place on the marshall webroot at /f3
+		You may need to add it to your development webserver.
+			
+			<ul>
+			<li>Documentation: <a href="http://fatfree.sourceforge.net/page/getting-started">http://fatfree.sourceforge.net/page/getting-started</a></li>
+			<li>Git Repo: git@git.marshall.edu:/var/git/web_base/f3.git</li>
+			</ul>
+		</p>
+
+
+	<h2>bootstrap (by twitter)</h2>
+		This is a css/javascript framework that helps all of our php web-apps have a consistent look and feel.  You will need to check out the latest copy from our repo and put it in this project. This will check out in a "bootstrap" subdirectory; you can leave it there.
+
+			<ul>
+			<li>Documentation: <a href="http://twitter.github.com/bootstrap/index.html">http://twitter.github.com/bootstrap/index.html</a></li>
+			<li>Git: git clone -b marshall git@git.marshall.edu:/var/git/web_base/bootstrap.git bootstrap</li>
+			</ul>
+
+
+	<h2>Backbone.js and Underscore.js</h2>
+		These were added to provide for an mvc framework on the client side in case you are trying to build an "AJAX" application.  You can see an example of how it works by looking at the "Employees" section of this boilerplate site. Backbone is the mvc framework and Underscore is a templating engine which enables you to continue using the template metaphor from the clientside as well as from the backend F3 mvc side.  These libraries are directly included within the application as opposed to being in a central location on the server.   They are both minimized but eventually they may be extracted out into our "bootstrap" repo or somewhere "common" to the domain so we can act as our own CDN across applications.
+
+		<ul>
+		<li>Backbone documentation: <a href="http://documentcloud.github.com/backbone/">http://documentcloud.github.com/backbone/</a><li>
+		<li>Underscore documentation: <a href="http://documentcloud.github.com/underscore/">http://documentcloud.github.com/underscore/</a></li>
+		</ul>
+
+
+<h1>TROUBLESHOOTING</h1>
+	<p>
+	If you are on APACHE and you are seeing an error like this:
+	
+	<pre><em>
+	file_put_contents(temp/localhost.tpl.0ai3bku) [function.file-put-contents]: failed to open stream: Permission denied
+	</em></pre>
+	</p>
+	<p>
+	Make sure the group that your webserve is a member of has ownership of this sites directory and all of the files within it.  For example on a mac osx lion machine that group is "wheel" - to do this execute the following command on the terminal from within the directory that contains the php_scaffold directory.
+	</p>
+	<strong><pre>
+	sudo chown -R <yourusername>:wheel php_scaffold
+	</pre></strong>
+
+	<p>
+	Also run these commands from within the php_scaffold directory:
+	</p>
+
+	<strong><pre>
+	chmod 755 * 
+	chmod 777 cache
+	chmod 777 temp
+	</pre></strong>
+
+<h1>.htaccess</h1>
+<p>
+	The .htaccess file included in this project is only needed if you are on Apache. However you do need to modify it to match your project
+</p>
+<h1>KNOWN PROBLEMS</H1>
+<p>If you use the minimization option for JS and CSS built into the F3 framework then sadly, whenever you refresh the page you may have to refresh twice in order to see your most recent changes to the code.</p>
