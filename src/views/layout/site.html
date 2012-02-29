@@ -1,7 +1,18 @@
       <F3:include href="layout/header.html" />
 
 <div class="container" id="content">
-      <F3:include href="{{@content}}"/>
+
+	<div class="row">
+			<div class="span4">
+				<F3:include href="{{@projectNav}}"/>
+			</div>
+			<div class="span12">
+				<F3:include href="{{@content}}"/>
+			</div>
+	</div>
+
+
+      
 </div>
 
       <F3:include href="layout/footer.html" />
