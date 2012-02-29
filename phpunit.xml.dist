@@ -4,12 +4,13 @@
    syntaxCheck="false">
 
 <testsuites>
-   <testsuite name="php-demo">
-     <directory suffix="Test.php">tests</directory>
+   <testsuite name="doxer">
+     <directory suffix="Tests.php">tests</directory>
    </testsuite>
 </testsuites>
+
 <logging>
-  <log type="coverage-html" target="build/coverage" title="php-demo"
+  <log type="coverage-html" target="build/coverage" title="doxer"
    charset="UTF-8" yui="true" highlight="true"
    lowUpperBound="35" highLowerBound="70"/>
   <log type="coverage-clover" target="build/logs/clover.xml"/>

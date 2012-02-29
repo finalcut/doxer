@@ -2,7 +2,15 @@
 	F3::route('GET /',
 		function() {
 			F3::set('html_title', F3::get('projectname'));
-			F3::set('content','home.html');
+			F3::set('content','home/home.html');
+			echo Template::serve('layout/site.html');
+		});
+
+
+	F3::route('GET /install',
+		function() {
+			F3::set('html_title', F3::get('projectname'));
+			F3::set('content','home/install.html');
 			echo Template::serve('layout/site.html');
 		});
 

@@ -58,7 +58,7 @@
 		 }
 
 		 function toArray(){
-		 	$fileds = $this->geDetDefaults();
+		 	$fields = $this->getDefaults();
 		 	$o = array();
 		 	foreach($fields as $field => $value){
 

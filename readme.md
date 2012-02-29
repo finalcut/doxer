@@ -16,6 +16,29 @@ You'll also need [mongodb][mongo] installed and the [php mongo extension][phpdri
 
 Finally, because F3 uses some caching you need to create a temp and a cache directory in your doxer root and chmod 777 those two directories.
 
+# Data Format
+Does this really belong here? No, but c'est la vie.  As each project is basically a book of documentation the docs will be stored in the following format within mongodb:
+
+```javascript
+{
+	name: "project name",
+	description_md: "summary description in markdown",
+	description_html: "summary description in html"
+	sections: [
+			{
+				name: "name",
+				body_md: "the markdown version of the content",
+				body_html: "the html version of the content"
+				order_ind: "some number indicating how to order the sections at this level"
+				children: [
+						// array of section elements..
+					]
+		}
+		]
+}
+```
+
+
 
 
 
