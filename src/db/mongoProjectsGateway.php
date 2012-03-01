@@ -2,6 +2,7 @@
 	require_once 'IProjectsGateway.php';
 	require_once 'src/model/project.php';
 	require_once 'src/model/section.php';
+	require_once 'src/model/library.php';
 
 	class MongoProjectsGateway implements IProjectsGateway {
 
@@ -67,6 +68,40 @@
 			$ret = $col->save($data); // this does an update or insert.. I guess based on the _id...""
 			$project->id = $data["_id"].""; // according to documentation the _id will be injected into the array..nice!
 			return $project;
+		}
+
+
+		public function getLibraries(){ // basically treating a collection as a schema sort of to separate projects by organization.
+			$mongoDB = new Mongo();
+			$db = $mongoDB->selectDB($this->vars["name"]);
+			$cols = $db->listCollections();
+
+			$libraries = array();
+
+			foreach($cols as $collection){
+				
+				// name comes out in format db.collection so we need to remove the db. part of the name..
+				$name = $collection . "";
+				$parts = explode(".", $name);
+				$name = $parts[1];
+
+
+
+				$c = new Library($name);
+				array_push($libraries, $c);
+			}
+
+
+			usort($libraries, array("Library","compare"));
+
+			return $libraries;
+
+
+		}
+
+
+		static function libraryCompare($a, $b){
+			return strcmp($a->name, $b->name); 
 		}
 
 

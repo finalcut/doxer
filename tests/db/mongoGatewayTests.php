@@ -6,33 +6,33 @@ require_once 'src/model/section.php';
 class mongoGatewayTest extends PHPUnit_Framework_TestCase
 {
 
+	private $config;
 	private $db;
 	private $coll;
 	private $gw;
 
 	protected function setUp(){
 			$mongoDB = new Mongo();
-			$this->db = $mongoDB->selectDB("doxertest");
-
-			$this->db->dropCollection('projects');
-
-			$this->coll = $this->db->createCollection('projects');
-
-		$config = array();
-		$config['type'] = "mongo";
-		$config['name'] = "doxertest";
-		$config['collection'] = "projects";
+			$this->config = array();
+			$this->config['type'] = "mongo";
+			$this->config['name'] = "doxertest";
+			$this->config['collection'] = "ea_projects";
 
 
-		$this->gw = new MongoProjectsGateway($config);
+			$this->db = $mongoDB->selectDB($this->config['name']);
+
+			$this->db->dropCollection($this->config['collection']);
+
+			$this->coll = $this->db->createCollection($this->config['collection']);
+
+
+
+		$this->gw = new MongoProjectsGateway($this->config);
 
 
 	}
 
-
 	public function testWriteProject(){
-		$this->db->dropCollection('projects');
-		$coll = $this->db->createCollection('projects');
 
 
 		$p = array();
@@ -65,10 +65,7 @@ class mongoGatewayTest extends PHPUnit_Framework_TestCase
 
 	}
 
-
-
-/*
-	public function testGetProjects(){
+	public function testGetProjectsWithSingleProjectInStore(){
 
 			$p = array();
 			$p["name"] = "test project";
@@ -87,13 +84,61 @@ class mongoGatewayTest extends PHPUnit_Framework_TestCase
 
 			$this->coll->insert($p);
 
-		$this->getProjectTestHelper($p);
+			$this->getProjectTestHelper($p);
 	}
-*/
 
-	private function getProjectTestHelper($baseProjectArray){
+
+	public function testGetProjectsWithMultipleProjectsInStore(){
+			$p1 = array();
+			$p1["name"] = "test project";
+			$p1["description_md"] = "*hi*";
+			$p1["description_html"] = "<em>hi</em>";
+			$p1["sections"] = array();
+
+			$s1 = array();
+			$s1["name"] = "section 1";
+			$s1["body_md"] = "hello";
+			$s1["body_html"] = "hello";
+			$s1["order_ind"] = "1";
+			$s1["sections"] = array();
+
+			array_push($p1["sections"],$s1);
+
+			$this->coll->insert($p1);
+
+
+
+
+			$p = array();
+			$p["name"] = "second project";
+			$p["description_md"] = "*hi 2*";
+			$p["description_html"] = "<em>hi 2</em>";
+			$p["sections"] = array();
+
+			$s = array();
+			$s["name"] = "section 1 of project 2";
+			$s["body_md"] = "hello 2";
+			$s["body_html"] = "hello 2";
+			$s["order_ind"] = "1";
+			$s["sections"] = array();
+
+			array_push($p["sections"],$s);
+
+			$this->coll->insert($p);
+
+
+			$this->getProjectTestHelper($p1, 0);
+			$this->getProjectTestHelper($p, 1);
+	}
+
+
+	private function getProjectTestHelper($baseProjectArray, $idx=0){
+		if(!$idx)
+			$idx = 0;
+
+
 		$prjs = $this->gw->getProjects();
-		$prj = $prjs[0];
+		$prj = $prjs[$idx];
 
 		$this->assertEquals($baseProjectArray["name"], $prj->name, "project name");
 		$this->assertEquals($baseProjectArray["description_md"], $prj->description_md, "project desc md");
@@ -114,9 +159,23 @@ class mongoGatewayTest extends PHPUnit_Framework_TestCase
 
 	}
 
+	public function testGetLibraries(){
+		$altCollection = "alternateReality"; // remember; collections can't have a period (.)  or a space in the name..
+		$this->db->createCollection($altCollection);
+
+		$libs = $this->gw->getLibraries();
+
+		// libs will come back sorted alphabetically by name so alternate reality will be our first library returned:
+		$this->assertEquals($this->config['collection'], $libs[1]->name);
+		$this->assertEquals($altCollection, $libs[0]->name);
+
+
+		$this->db->dropCollection($altCollection);
+
+	}
 
 	public function tearDown(){
-		$this->db->dropCollection("projects");
+		$this->db->dropCollection($this->config['collection']);
 	}
 
 }
