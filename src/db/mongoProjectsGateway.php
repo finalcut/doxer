@@ -12,8 +12,8 @@
 		public function MongoProjectsGateway($dbsettings){
 			if(isset($dbsettings["name"]))
 				$this->vars["name"] = $dbsettings["name"];
-			if(isset($dbsettings["collection"]))
-				$this->vars["collectionName"] = $dbsettings["collection"];
+			if(isset($dbsettings["library"]))
+				$this->vars["collectionName"] = $dbsettings["library"];
 		}
 
 		private function getCollection(){

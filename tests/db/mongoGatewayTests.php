@@ -16,14 +16,14 @@ class mongoGatewayTest extends PHPUnit_Framework_TestCase
 			$this->config = array();
 			$this->config['type'] = "mongo";
 			$this->config['name'] = "doxertest";
-			$this->config['collection'] = "ea_projects";
+			$this->config['library'] = "ea_projects";
 
 
 			$this->db = $mongoDB->selectDB($this->config['name']);
 
-			$this->db->dropCollection($this->config['collection']);
+			$this->db->dropCollection($this->config['library']);
 
-			$this->coll = $this->db->createCollection($this->config['collection']);
+			$this->coll = $this->db->createCollection($this->config['library']);
 
 
 
@@ -160,22 +160,22 @@ class mongoGatewayTest extends PHPUnit_Framework_TestCase
 	}
 
 	public function testGetLibraries(){
-		$altCollection = "alternateReality"; // remember; collections can't have a period (.)  or a space in the name..
-		$this->db->createCollection($altCollection);
+		$altLibrary = "alternateReality"; // remember; collections can't have a period (.)  or a space in the name..
+		$this->db->createCollection($altLibrary);
 
 		$libs = $this->gw->getLibraries();
 
 		// libs will come back sorted alphabetically by name so alternate reality will be our first library returned:
-		$this->assertEquals($this->config['collection'], $libs[1]->name);
-		$this->assertEquals($altCollection, $libs[0]->name);
+		$this->assertEquals($this->config['library'], $libs[1]->name);
+		$this->assertEquals($altLibrary, $libs[0]->name);
 
 
-		$this->db->dropCollection($altCollection);
+		$this->db->dropCollection($altLibrary);
 
 	}
 
 	public function tearDown(){
-		$this->db->dropCollection($this->config['collection']);
+		$this->db->dropCollection($this->config['library']);
 	}
 
 }
