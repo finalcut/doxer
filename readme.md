@@ -16,6 +16,9 @@ You'll also need [mongodb][mongo] installed and the [php mongo extension][phpdri
 
 Finally, because F3 uses some caching you need to create a temp and a cache directory in your doxer root and chmod 777 those two directories.
 
+# Getting Setup on Windows
+... lots to write here; but this is important since our prod environment will be windows and IIS.
+
 # Data Format
 Does this really belong here? No, but c'est la vie.  As each project is basically a book of documentation the docs will be stored in the following format within mongodb:
 
