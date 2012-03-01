@@ -14,7 +14,7 @@
 			method must exist and it will happen automatically
 		*/
 
-		public function compare($a, $b){
+		static function compare($a, $b){
 			if($a->order_ind == $b->order_ind){
 				return strcmp($a->name, $b->name); // fall bck
 			}
