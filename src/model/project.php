@@ -20,16 +20,6 @@
 		}
 
 
-		public function getDefaults(){
-			return array(
-				 'id'=>""
-				,'name'=>""
-				,'description_md'=>""
-				,'description_html'=>""
-				,'sections'=>array()
-			);
-		}
-
 		public function initPropertiesFromArray($ary){
 			parent::initPropertiesFromArray($ary);
 			$this->sections = array();
@@ -53,4 +43,16 @@
 			$a["sections"] = $sections;
 			return $a;
 		}
+
+
+		public function getDefaults(){
+			return array(
+				 'id'=>""
+				,'name'=>""
+				,'description_md'=>""
+				,'description_html'=>""
+				,'sections'=>array()
+			);
+		}
+		
 	}

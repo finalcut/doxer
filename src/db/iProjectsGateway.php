@@ -14,6 +14,8 @@
 
 		public function saveProject($project);
 
+		public function getLibraries();
+
 	}
 
 ?>

@@ -1,5 +1,5 @@
 <?php
-	require_once 'mongoProjectsGateway.php';
+	require_once 'db/mongoProjectsGateway.php';
 
 	/* lame object name I know.. sue me. */
 

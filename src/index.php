@@ -1,4 +1,5 @@
 <?php
+session_start();
  // you really shouldn't ever have to touch this file; it just does everythign without assistence..
 
 // this gets F3 working.. it has to happen first.

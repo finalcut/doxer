@@ -11,21 +11,44 @@
           <div class="nav-collapse">
             <ul class="nav">
         				<li {{@PARAMS[0]=='/'?'class="active"':''}}><a href="{{@relroot}}"><i class="icon-home icon-white"></i>&nbsp;Home</a></li>
+
                 <li class="divider-vertical"></li>
-                <li {{strpos(@PARAMS[0],"/project/") === 0 ? 'class="dropdown active"' :'class="dropdown"'}}>
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-right icon-white"></i>Projects<b class="caret"></b></a>
+                <li class="dropdown">
+                <F3:check if="{{@libraryName != false}}">
+                  <F3:true>
+                   <li class="dropdown-toggle active" data-toggle="dropdown"><i class="icon-book icon-white"></i>{{@libraryname}}<b class="caret"></b></li>
+                  </F3:true>
+                  <F3:false>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-right icon-white"></i>Libraries<b class="caret"></b></a>
+                  </F3:false>
+                </F3:check>
                   <ul class="dropdown-menu">
-                    <li><a href="{{@relroot}}/project/foo">Foo</a></li>
-                    <li><a href="{{@relroot}}/project/bar">Bar</a></li>
-                    <li><a href="{{@relroot}}/project/extra">Extra</a></li>
+                    <F3:repeat group="{{@libraries}}" value="{{@library}}" counter="{{@counter}}">
+                      <li><a href="{{@relroot}}/library/load/{{@library->name}}">{{@library->name}}</a></li>
+                    </F3:repeat>
                   </ul>
                 </li>
+
+
+                <F3:check if="{{@libraryName != false}}">
+
+                <li class="divider-vertical"></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-right icon-white"></i>Projects<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <F3:repeat group="{{@projects}}" value="{{@project}}" counter="{{@cntr}}">
+                      <li><a href="{{@relroot}}/project/load/{{@project->name}}/{{@project->id}}">{{@project->name}}</a></li>
+                    </F3:repeat>
+                  </ul>
+                </li>
+
+                  <li class="active"><a href="{{@relroot}}/project/{{@projectName}}"><i class="icon-cog icon-white"></i>{{@projectName}}</a></li>
+
+                </F3:check>
+                
                 <li {{@PARAMS[0]=='/install'?'class="active"':''}}><a href="{{@relroot}}/install"><i class="icon-download-alt icon-white"></i>&nbsp;Install</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
-
-
-

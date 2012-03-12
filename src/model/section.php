@@ -32,15 +32,6 @@
 		}
 
 
-		public function getDefaults(){
-			return array(
-				 'name'=>""
-				,'body_md'=>""
-				,'body_html'=>""
-				,'order_ind'=>0
-				,'sections'=>array()
-			);
-		}
 		public function toArray(){
 			$a = parent::toArray();
 
@@ -54,4 +45,13 @@
 		}
 
 
+		public function getDefaults(){
+			return array(
+				 'name'=>""
+				,'body_md'=>""
+				,'body_html'=>""
+				,'order_ind'=>0
+				,'sections'=>array()
+			);
+		}
 	}

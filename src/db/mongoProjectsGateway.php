@@ -1,8 +1,8 @@
 <?php
-	require_once 'IProjectsGateway.php';
-	require_once 'src/model/project.php';
-	require_once 'src/model/section.php';
-	require_once 'src/model/library.php';
+	require_once "db/IProjectsGateway.php";
+	require_once "model/project.php";
+	require_once "model/section.php";
+	require_once "model/library.php";
 
 	class MongoProjectsGateway implements IProjectsGateway {
 
