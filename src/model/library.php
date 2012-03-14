@@ -6,6 +6,7 @@
 		public function Library($name){
 			parent::NonPersistentBean();
 			$this->name = $name;
+			$this->oldname = $name;
 		}
 		static function compare($a, $b){
 			return strcmp($a->name, $b->name); // fall bck
@@ -14,7 +15,8 @@
 
 		public function getDefaults(){
 			return array(
-					'name' =>""
+					'name' =>"",
+					'oldname'=>""
 			);
 		}
 	}

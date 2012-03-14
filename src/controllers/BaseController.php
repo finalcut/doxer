@@ -22,8 +22,13 @@
 			$db = $factory->GetProjectGateway($config);
 
 
+			$libs  = $db->getLibraries();
+			if(count($libs) == 0){
+				$newLib = $db->saveLibrary('Default');
+				array_push($newLib);
+			}
 
-			F3::set('libraries', $db->getLibraries());
+			F3::set('libraries', $libs);
 
 			// load all the projects avaiable..
 
@@ -84,10 +89,13 @@
 		}
 
 
-		function dump($var){
+		function dump($var, $abort=false){
 			print_r("<pre>");
 			print_r($var);
 			print_r("</pre>");
+			if($abort){
+				die();
+			}
 		}
 
 	}

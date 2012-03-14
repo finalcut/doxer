@@ -16,6 +16,8 @@
 
 		public function getLibraries();
 
+		public function saveLibrary($libraryName);
+
 	}
 
 ?>

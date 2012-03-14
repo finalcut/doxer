@@ -1,35 +1,15 @@
 <?php
-	F3::route('GET /',
-		function() {
-			F3::set('html_title', F3::get('projectname'));
-			F3::set('content','home/home.html');
-			echo Template::serve('layout/site.html');
-		});
 
 
-	F3::route('GET /install',
-		function() {
-			F3::set('html_title', F3::get('projectname'));
-			F3::set('content','home/install.html');
-			echo Template::serve('layout/site.html');
-		});
+	require 'HomeController.php';
+	// handles calls directly to the users subdirectory..
 
-	F3::set('ONERROR', 'error_handler');
 
-	function error_handler(){
-		switch(F3::get('ERROR.code')){
-			case 404:
-				F3::set('html_title', 'PAGE NOT FOUND');
-				F3::set('content', 'errors/404.html');
-				echo Template::serve('layout/site.html');
-				break;
-			case 500:
-				F3::set('html_title', 'OH SNAP - SOMETHINGS WRONG');
-				F3::set('content', 'errors/500.html');
-				echo Template::serve('layout/site.html');
-				break;
-		}
-	}
+	F3::route('GET /', 'HomeController->home');
+
+	F3::route('GET /install', 'HomeController->install');
+
+	F3::set('ONERROR', 'HomeController->errorHandler');
 
 
 	/*

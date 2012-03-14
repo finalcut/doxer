@@ -3,7 +3,7 @@ session_start();
  // you really shouldn't ever have to touch this file; it just does everythign without assistence..
 
 // this gets F3 working.. it has to happen first.
-require_once '../../f3/lib/base.php';
+require_once '../f3/lib/base.php';
  
 
 // make sure your config.cfg file is correct for your application.

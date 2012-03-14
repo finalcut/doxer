@@ -71,6 +71,15 @@
 		}
 
 
+
+		public function saveLibrary($libraryName){
+			$mongoDB = new Mongo();
+			$db = $mongoDB->selectDB($this->vars["name"]);
+			$db->createCollection($libraryName);
+			return new Library($libraryName);
+
+		}
+
 		public function getLibraries(){ // basically treating a collection as a schema sort of to separate projects by organization.
 			$mongoDB = new Mongo();
 			$db = $mongoDB->selectDB($this->vars["name"]);
@@ -90,9 +99,8 @@
 				$c = new Library($name);
 				array_push($libraries, $c);
 			}
-
-
 			usort($libraries, array("Library","compare"));
+
 
 			return $libraries;
 
