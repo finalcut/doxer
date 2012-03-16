@@ -13,13 +13,17 @@
 	class BaseController {
 		public $session;
 
+		function getDB(){
+			$config = F3::get('dbsettings');
+			$factory = new GatewayFactory();
+			return $factory->GetProjectGateway($config);
+		}
+
 		function beforeRoute(){
 			// gets executed before the current route..
 			$this->session = new Session();
 
-			$config = F3::get('dbsettings');
-			$factory = new GatewayFactory();
-			$db = $factory->GetProjectGateway($config);
+			$db = $this->getDB();
 
 
 			$libs  = $db->getLibraries();
@@ -97,6 +101,7 @@
 				die();
 			}
 		}
+
 
 	}
 ?>

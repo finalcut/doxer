@@ -4,6 +4,9 @@
   	<script src="{{@bootstraphome}}/js/jquery.js" type="text/javascript"></script>
 	<script src="{{@bootstraphome}}/js/bootstrap.min.js" type="text/javascript"></script>
 
+	<script type="text/javascript" src="{{@relroot}}/lib/MarkdownDeep/MarkdownDeep.min.js"></script>
+	<script type="text/javascript" src="{{@relroot}}/lib/MarkdownDeep/MarkdownDeepLib.min.js"></script>
+
 	<F3:check if="{{@useBackbone}}"><F3:true>
 	<script src="{{@relroot}}/lib/underscore-min.js" type="text/javascript"></script>
 	<script src="{{@relroot}}/lib/backbone-min.js" type="text/javascript"></script>
@@ -17,10 +20,11 @@
 		<script src="{{@relroot}}/views/{{@script}}" type="text/javascript"></script>
 	</F3:repeat>
 
-
 	<F3:check if="{{@useJSFormValidation}}"><F3:true>
 
 	<script src="{{@bootstraphome}}/js/plugins/jquery.validate.min.js" type="text/javascript"></script>
+
+
 	<script type="text/javascript">
 		$(document).ready(function(){
 			// turn validation on for every form on the page

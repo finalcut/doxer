@@ -29,5 +29,11 @@
 			F3::set('content','home/install.html');
 			echo Template::serve('layout/site.html');
 		}
+
+		function markdownhelp(){
+			F3::set('content', 'home/mdd_help.htm');
+			echo Template::serve('layout/bare.html');
+
+		}
 	}
 ?>

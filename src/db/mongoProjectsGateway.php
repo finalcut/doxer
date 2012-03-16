@@ -29,8 +29,18 @@
 			$projects = array();
 
 			foreach($cursor as $id => $proj){
+				$project = $this->readProject($proj);
+				array_push($projects, $project);
+			}
+
+			return $projects;
+
+		}
+
+		private function readProject($proj){
 				$project = new Project();
-				$project->id = $id . ""; // cast to a string
+
+				$project->id = $proj['_id'] . ""; // cast to a string
 
 
 				if(isset($proj['name']))
@@ -48,12 +58,17 @@
 
 				$project->sections = $this->getSectionsForObject($proj);
 
-				array_push($projects, $project);
-			}
-
-			return $projects;
+				return $project;
 
 		}
+
+
+		public function getProject($id){
+			$collection = $this->getCollection();
+			$proj = $collection->findOne(array('_id' => new MongoId($id)));
+			return $this->readProject($proj);
+		}
+
 
 		public function saveProject($project){
 			$col = $this->getCollection();
@@ -63,13 +78,10 @@
 				$data["_id"] = new MongoId($data["id"]);
 			}
 
-
-
 			$ret = $col->save($data); // this does an update or insert.. I guess based on the _id...""
 			$project->id = $data["_id"].""; // according to documentation the _id will be injected into the array..nice!
 			return $project;
 		}
-
 
 
 		public function saveLibrary($libraryName){
@@ -142,10 +154,14 @@
 				return $sections;
 		}
 
-
-		public function getProject($id){
+		function dump($var, $abort=false){
+			print_r("<pre>");
+			print_r($var);
+			print_r("</pre>");
+			if($abort){
+				die();
+			}
 		}
-
 
 	}
 ?>

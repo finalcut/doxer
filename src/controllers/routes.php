@@ -11,6 +11,7 @@
 
 	F3::set('ONERROR', 'HomeController->errorHandler');
 
+	F3::route('GET /markdownHelp', 'HomeController->markdownhelp');
 
 	/*
 		This is here for utility only.  See http://fatfree.sourceforge.net/page/optimization/keeping-javascript-and-css-on-a-healthy-diet

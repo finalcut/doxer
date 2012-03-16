@@ -13,6 +13,7 @@
 		function home(){
 			F3::set('html_title', $this->session->get('libraryName'));
 			F3::set('content','library/home.html');
+			F3::set('libraryName', $this->session->get("libraryName"));
 			echo Template::serve('layout/site.html');
 		}
 	}

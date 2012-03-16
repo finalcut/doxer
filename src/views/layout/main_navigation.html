@@ -16,10 +16,10 @@
                 <li class="dropdown">
                 <F3:check if="{{@libraryName != false}}">
                   <F3:true>
-                   <li class="dropdown-toggle active" data-toggle="dropdown"><i class="icon-book icon-white"></i>{{@libraryname}}<b class="caret"></b></li>
+                   <a class="dropdown-toggle active" data-toggle="dropdown"><i class="icon-book icon-white"></i>&nbsp;Libraries: {{@libraryName}}<b class="caret"></b></a>
                   </F3:true>
                   <F3:false>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-right icon-white"></i>Libraries<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-right icon-white"></i>&nbsp;Libraries<b class="caret"></b></a>
                   </F3:false>
                 </F3:check>
                   <ul class="dropdown-menu">
@@ -34,16 +34,13 @@
 
                 <li class="divider-vertical"></li>
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-right icon-white"></i>Projects<b class="caret"></b></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-right icon-white"></i>&nbsp;Projects<b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <F3:repeat group="{{@projects}}" value="{{@project}}" counter="{{@cntr}}">
                       <li><a href="{{@relroot}}/project/load/{{@project->name}}/{{@project->id}}">{{@project->name}}</a></li>
                     </F3:repeat>
                   </ul>
                 </li>
-
-                  <li class="active"><a href="{{@relroot}}/project/{{@projectName}}"><i class="icon-cog icon-white"></i>{{@projectName}}</a></li>
-
                 </F3:check>
                 
                 <li {{@PARAMS[0]=='/install'?'class="active"':''}}><a href="{{@relroot}}/install"><i class="icon-download-alt icon-white"></i>&nbsp;Install</a></li>
