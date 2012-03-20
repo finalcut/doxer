@@ -1,5 +1,5 @@
 # Doxer
-Doxer is a project designed to make it sort of easy to write documentation about different projects.  At the moment it is just an idea.  However, it will use markdown on the composition end and mongodb as a repository.  It will be written in php as that is a platform that is regularly avaiable where I work.   Because of my inspiration it will also be using the waypoints.js Jquery plugin to help keep the navigation in sync with the content.
+Doxer is a project designed to make it sort of easy to write documentation about different projects.  At the moment it is just an idea.  However, it will use markdown on the composition end and mongodb as a repository.  It will be written in php as that is a platform that is regularly avaiable where I work.   Because of my inspiration it will also be using the [waypoints.js][waypoints] Jquery plugin to help keep the navigation in sync with the content.
 
 ## Why Doxer
 We need a way to not only create documentation but to output it in a nice way for consumption.  I really, really, really like the way the documentation at [parse.com][pd] looks so I decided to make a tool that will let me and my team create documentation very similar to it.
@@ -24,11 +24,13 @@ Does this really belong here? No, but c'est la vie.  As each project is basicall
 
 ```javascript
 {
+	id: mongodb generatedId
 	name: "project name",
 	description_md: "summary description in markdown",
 	description_html: "summary description in html"
 	sections: [
 			{
+				id: mongodb generatedId
 				name: "name",
 				body_md: "the markdown version of the content",
 				body_html: "the html version of the content"
@@ -50,3 +52,4 @@ Does this really belong here? No, but c'est la vie.  As each project is basicall
 [bs]:https://github.com/twitter/bootstrap/tags
 [mongo]:http://www.mongodb.org/
 [phpdriver]:http://www.mongodb.org/display/DOCS/PHP+Language+Center
+[waypoints]:http://imakewebthings.com/jquery-waypoints/
