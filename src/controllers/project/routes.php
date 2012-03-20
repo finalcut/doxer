@@ -13,5 +13,7 @@
 
 	F3::route('POST /project/save', 'ProjectController->save');
 
+	F3::route('POST /project/saveMetaDetails', 'ProjectController->saveMetaDetails');
+
 	F3::route('Get /project/js/@resource', 'ProjectController->jsview');
 ?>

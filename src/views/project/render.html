@@ -1,1 +1,10 @@
-<h1>{{@PARAMS.projectName}}</h1>
+<div class="hero-unit">
+	<h1>{{@project->name}}</h1>
+	{{@project->description_html}}
+	<F3:check if="{{@editmode == true}}">
+		<F3::true>
+			<p><a href=""><i class="icon-pencil"></i>&nbsp;edit project</a></p>
+		</F3:true>
+	</F3:check>
+</div>
+<F3

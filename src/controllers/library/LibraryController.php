@@ -3,6 +3,11 @@
 
 	class LibraryController extends BaseController {
 
+		public function LibraryController(){
+			parent::BaseController();
+		}
+
+
 		function selectLibrary(){
 			//TODO: identify the library to load, and then send the user on to the 
 			$pn = F3::get("PARAMS['libraryName']");

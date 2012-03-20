@@ -1,0 +1,12 @@
+<div class="well sidebar-nav">
+	<ul class="nav nav-list">
+		<F3:repeat group="{{@project->sections}}" value="{{@section}}" counter="{{@cntr}}">
+			<li><a href="#">{{@section->name}}</a></li>
+		</F3:repeat>
+	</ul>
+	<F3:check if="{{@editmode == true}}">
+		<F3::true>
+			<p><a href="#"><i class="icon-plus-sign"></i>&nbsp;Add Section</a></p>
+		</F3:true>
+	</F3:check>
+</div>

@@ -16,6 +16,7 @@
 				$this->vars["collectionName"] = $dbsettings["library"];
 		}
 
+
 		private function getCollection(){
 			$mongoDB = new Mongo();
 			$db = $mongoDB->selectDB($this->vars["name"]);

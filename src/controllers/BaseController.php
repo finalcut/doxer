@@ -13,16 +13,32 @@
 	class BaseController {
 		public $session;
 
-		function getDB(){
+		public function BaseController(){
+			$this->session = new Session();
+
+			$libraryName = $this->session->get("libraryName");
+			F3::set('libraryName', $libraryName);
+			if($libraryName != ''){
+				// get list of all projects in the current library..
+				$db = $this->getDB($this->session->get("libraryName"));
+				$projects = $db->getProjects();
+				F3::set('projects', $projects);
+			}
+			F3::set('projectName', $this->session->get("project"));
+
+		}
+
+
+		function getDB($libraryName=""){
 			$config = F3::get('dbsettings');
+			if($libraryName != "")
+					$config['library']= $libraryName;
 			$factory = new GatewayFactory();
 			return $factory->GetProjectGateway($config);
 		}
 
 		function beforeRoute(){
 			// gets executed before the current route..
-			$this->session = new Session();
-
 			$db = $this->getDB();
 
 
@@ -33,11 +49,6 @@
 			}
 
 			F3::set('libraries', $libs);
-
-			// load all the projects avaiable..
-
-
-			F3::set('html_title', 'BEFORE');
 		}
 
 		function afterRoute(){

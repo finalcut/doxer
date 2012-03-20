@@ -1,26 +1,41 @@
 <?php
 	require_once 'controllers/BaseController.php';
+	require_once 'phplib/markdown.php';
 
 	class ProjectController extends BaseController {
+		public function ProjectController(){
+			parent::BaseController();
+		}
+
+
 		function selectProject(){
 			$pn = F3::get("PARAMS['projectName']");
-			$this->session->set('project', $pn);
+			$pid = F3::get("PARAMS['projectId']");
+			$this->session->set('projectName', $pn);
+			$this->session->set('projectId', $pid);
 			F3::reroute('/project/' . $pn);
 		}
 
 		function foo(){
-			F3::set('html_title', 'Bar');
+			$db = $this->getDB($this->session->get("libraryName"));
+			$project = $db->getProject($this->session->get('projectId'));
+
+			F3::set('project', $project);
+
+			F3::set('html_title', $this->session->get('projectName'));
 			F3::set('content','project/render.html');
-			F3::set('projectName', $this->session->get("project"));
+			F3::set('projectNav', 'project/nav.html');
 			echo Template::serve('layout/site.html');
 		}
 
 		function form(){
-			$db = $this->getDB();
+			$db = $this->getDB($this->session->get("libraryName"));
 			$pid = F3::get("PARAMS['projectId']");
 			$pid = $pid == "" ? 0 : $pid;
 
 			$project = $db->getProject($pid);
+
+			F3::set('html_title', $pid == "" ? "New Project" : "Edit " . $project.get("name"));
 
 			F3::set('project', $project);
 
@@ -30,6 +45,25 @@
 			echo Template::serve('layout/site.html');
 		}
 
+
+		// just tweaks the title and description texts..
+		function saveMetaDetails(){
+			$data = F3::get('POST');
+			$db = $this->getDB($this->session->get("libraryName"));
+
+			$data['projectId'] = $data['projectId'] == "" ? 0 : $data['projectId'];
+			$project = $db->getProject($data['projectId']);
+
+			$data['description_html'] = markdown($data['description_md']);
+
+			$project->initPropertiesFromArray($data);
+			$project = $db->saveProject($project);
+
+			F3::reroute('/project/load/' . $project->name . '/' . $project->id);
+
+		}
+
+		// changes the contents of the entire project include all sections within it. currently not sure if I need/want to split these
 		function save(){
 
 		}

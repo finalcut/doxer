@@ -1,20 +1,25 @@
-<form method="post" action="" class="form well">
+<form method="post" action="{{@relroot}}/project/saveMetaDetails" class="form well">
+	<input type="hidden" name="projectId" value="{{@project->id}}" />
 	<fieldset>
 			<legend></legend>
 				<div class="control-group span6">
-					<label for="txt1Name" class="control-label">Name</label>
+					<label for="txt1Name" class="control-label">Project Name</label>
 					<div class="controls">
-						<input type="text" class="text" id="txt1Name" name="Name" value="">
+						<input type="text" class="text" id="txt1Name" name="name" value="">
 					</div>
 				</div>
 				<div class="control-group span6">
 					<label for="txt2Description" class="control-label">Description</label>
 					<div class="controls">
 						<div class="mdd_toolbar"></div>
-						<textarea cols="10" rows="10" class="mdd_editor" name="Description" id="txt2Description"></textarea>
+						<textarea cols="10" rows="10" class="mdd_editor" name="description_md" id="txt2Description"></textarea>
 						<div class="mdd_resizer"></div>
 						<div class="mdd_preview"></div>
 					</div>
+				</div>
+				<div class="control-group span6 form-actions">
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="reset" class="btn">Cancel</button>
 				</div>
 	</fieldset>
 </form>
