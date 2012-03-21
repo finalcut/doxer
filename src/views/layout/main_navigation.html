@@ -44,12 +44,13 @@
                 </F3:check>
                   <ul class="dropdown-menu">
                     <F3:repeat group="{{@projects}}" value="{{@project}}" counter="{{@cntr}}">
-                      <li><a href="{{@relroot}}/project/load/{{@project->name}}/{{@project->id}}">{{@project->name}}</a></li>
+                      <li><a href="{{@relroot}}/{{@libraryName}}/{{@project->name}}">{{@project->name}}</a></li>
                     </F3:repeat>
                   </ul>
                 </li>
                 </F3:check>
                 
+
                 <li {{@PARAMS[0]=='/install'?'class="active"':''}}><a href="{{@relroot}}/install"><i class="icon-download-alt icon-white"></i>&nbsp;Install</a></li>
             </ul>
           </div><!--/.nav-collapse -->

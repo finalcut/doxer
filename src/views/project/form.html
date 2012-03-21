@@ -1,18 +1,18 @@
-<form method="post" action="{{@relroot}}/project/saveMetaDetails" class="form well">
+<form method="post" action="{{@relroot}}/{{@libraryName}}/{{@projectName}}/save" class="form well">
 	<input type="hidden" name="projectId" value="{{@project->id}}" />
 	<fieldset>
 			<legend></legend>
 				<div class="control-group span6">
 					<label for="txt1Name" class="control-label">Project Name</label>
 					<div class="controls">
-						<input type="text" class="text" id="txt1Name" name="name" value="">
+						<input type="text" class="text" id="txt1Name" name="name" value="{{@project->name}}">
 					</div>
 				</div>
 				<div class="control-group span6">
 					<label for="txt2Description" class="control-label">Description</label>
 					<div class="controls">
 						<div class="mdd_toolbar"></div>
-						<textarea cols="10" rows="10" class="mdd_editor" name="description_md" id="txt2Description"></textarea>
+						<textarea cols="10" rows="10" class="mdd_editor" name="description_md" id="txt2Description">{{@project->description_md}}</textarea>
 						<div class="mdd_resizer"></div>
 						<div class="mdd_preview"></div>
 					</div>

@@ -26,7 +26,7 @@
 		public function getProjects(){
 			$collection = $this->getCollection();
 			$cursor = $collection->find();
-
+			$cursor->sort(array('name'=> 1));
 			$projects = array();
 
 			foreach($cursor as $id => $proj){
@@ -60,13 +60,18 @@
 				$project->sections = $this->getSectionsForObject($proj);
 
 				return $project;
-
 		}
 
 
 		public function getProject($id){
 			$collection = $this->getCollection();
 			$proj = $collection->findOne(array('_id' => new MongoId($id)));
+			return $this->readProject($proj);
+		}
+
+		public function getProjectByName($projectName){
+			$collection = $this->getCollection();
+			$proj = $collection->findOne(array('name' => $projectName));
 			return $this->readProject($proj);
 		}
 
@@ -77,7 +82,14 @@
 			$data = $project->toArray();
 			if(isset($data["id"]) && $data["id"] != ""){
 				$data["_id"] = new MongoId($data["id"]);
+			} else {
+				$temp = $this->getProjectByName($data["name"]);
+				if($temp->id != ""){
+					$data["_id"] = new MongoId($temp->id);
+				}
 			}
+
+			$data['id'] = $data['_id'];
 
 			$ret = $col->save($data); // this does an update or insert.. I guess based on the _id...""
 			$project->id = $data["_id"].""; // according to documentation the _id will be injected into the array..nice!

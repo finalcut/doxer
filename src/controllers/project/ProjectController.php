@@ -5,37 +5,39 @@
 	class ProjectController extends BaseController {
 		public function ProjectController(){
 			parent::BaseController();
-		}
 
+			$params = F3::get('PARAMS');
+			$project = new Project();
 
-		function selectProject(){
-			$pn = F3::get("PARAMS['projectName']");
-			$pid = F3::get("PARAMS['projectId']");
-			$this->session->set('projectName', $pn);
-			$this->session->set('projectId', $pid);
-			F3::reroute('/project/' . $pn);
-		}
+			if(isset($params['projectName'])) {
+				$projectName = $params['projectName'];
+				$db = $this->getDB($this->session->get("libraryName"));
+				$project = $db->getProjectByName($projectName);
 
-		function foo(){
-			$db = $this->getDB($this->session->get("libraryName"));
-			$project = $db->getProject($this->session->get('projectId'));
+			}
+
+			$this->session->set('projectName', $project->name);
+			$this->session->set('projectId', $project->id);
 
 			F3::set('project', $project);
+			F3::set('projectName', $this->session->get("projectName"));
 
-			F3::set('html_title', $this->session->get('projectName'));
+		}
+
+
+		function foo(){
+
+			F3::set('html_title', "Project: " . $this->session->get('projectName'));
+			F3::set('subNav', 'project/head.html');
 			F3::set('content','project/render.html');
 			F3::set('projectNav', 'project/nav.html');
 			echo Template::serve('layout/site.html');
 		}
 
 		function form(){
-			$db = $this->getDB($this->session->get("libraryName"));
-			$pid = F3::get("PARAMS['projectId']");
-			$pid = $pid == "" ? 0 : $pid;
+			$project = F3::get('project');
 
-			$project = $db->getProject($pid);
-
-			F3::set('html_title', $pid == "" ? "New Project" : "Edit " . $project.get("name"));
+			F3::set('html_title', $project == false ? "New Project" : "Edit " . $project->name);
 
 			F3::set('project', $project);
 
@@ -47,28 +49,24 @@
 
 
 		// just tweaks the title and description texts..
-		function saveMetaDetails(){
+		function save(){
 			$data = F3::get('POST');
 			$db = $this->getDB($this->session->get("libraryName"));
 
-			$data['projectId'] = $data['projectId'] == "" ? 0 : $data['projectId'];
-			$project = $db->getProject($data['projectId']);
+
+			$data['id'] = $data['projectId'] == "" ? 0 : $data['projectId'];
+			$project = $db->getProject($data['id']);
 
 			$data['description_html'] = markdown($data['description_md']);
 
 			$project->initPropertiesFromArray($data);
 			$project = $db->saveProject($project);
 
-			F3::reroute('/project/load/' . $project->name . '/' . $project->id);
+			F3::reroute('/' . F3::get('libraryName') . '/' . $project->name);
 
 		}
 
-		// changes the contents of the entire project include all sections within it. currently not sure if I need/want to split these
-		function save(){
-
-		}
-
-
+		
 		/*
 			any javascript view files being used for this subdirectory will be returned via this method..
 		*/

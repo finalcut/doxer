@@ -2,14 +2,37 @@
 
 <div class="container-fluid" id="content">
 
-	<div class="row-fluid">
-			<div class="span3">
-				<F3:include href="{{@projectNav}}"/>
+	<F3:check if="{{@subNav != false}}">
+
+			<div class="row-fluid">
+				<div class="span12">
+					<F3:include href="{{@subNav}}" />
+				</div>
 			</div>
-			<div class="span9">
-				<F3:include href="{{@content}}"/>
+	</F3:check>
+
+
+	<F3:check if="{{@projectNav != false}}">
+		<F3:true>
+			<div class="row-fluid">
+					<div class="span3">
+						<F3:include href="{{@projectNav}}"/>
+					</div>
+					<div class="span9">
+						<F3:include href="{{@content}}"/>
+					</div>
 			</div>
-	</div>
+		</F3:true>
+		<F3:false>
+			<div class="row-fluid">
+				<div class="span12">
+					<F3:include href="{{@content}}" />
+				</div>
+			</div>
+		</F3:false>
+	</F3:check>
+
+
 
 
       

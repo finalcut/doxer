@@ -12,6 +12,8 @@
 
 		public function getProject($id);
 
+		public function getProjectByName($projectName);
+
 		public function saveProject($project);
 
 		public function getLibraries();

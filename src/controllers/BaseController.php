@@ -15,7 +15,6 @@
 
 		public function BaseController(){
 			$this->session = new Session();
-
 			$libraryName = $this->session->get("libraryName");
 			F3::set('libraryName', $libraryName);
 			if($libraryName != ''){
@@ -24,8 +23,6 @@
 				$projects = $db->getProjects();
 				F3::set('projects', $projects);
 			}
-			F3::set('projectName', $this->session->get("project"));
-
 		}
 
 
