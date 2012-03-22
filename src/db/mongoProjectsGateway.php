@@ -39,28 +39,62 @@
 		}
 
 		private function readProject($proj){
-				$project = new Project();
+			$project = new Project();
 
-				$project->id = $proj['_id'] . ""; // cast to a string
-
-
-				if(isset($proj['name']))
-					$project->name = $proj["name"];
+			$project->id = $proj['_id'] . ""; // cast to a string
 
 
-				if(isset($proj['description_md']))
-					$project->description_md = $proj["description_md"];
-				if(isset($proj['description_html']))
-					$project->description_html = $proj["description_html"];
+			if(isset($proj['name']))
+				$project->name = $proj["name"];
 
-				// just in case some wierd html slipped in the system..
-				if($project->description_md == "")
-					$project->description_html = "";
 
-				$project->sections = $this->getSectionsForObject($proj);
+			if(isset($proj['description_md']))
+				$project->description_md = $proj["description_md"];
+			if(isset($proj['description_html']))
+				$project->description_html = $proj["description_html"];
 
-				return $project;
+			// just in case some wierd html slipped in the system..
+			if($project->description_md == "")
+				$project->description_html = "";
+
+			$project->sections = $this->getSectionsForObject($proj);
+
+			return $project;
 		}
+
+		private function getSectionsForObject($obj){
+				$sections = array();
+				if(isset($obj['sections'])){
+					foreach($obj['sections'] as $sec){
+						$section = $this->readSection($sec);
+						$sections[$section->uuid] = $section;
+					}
+				}
+
+				return $sections;
+		}
+
+		private function readSection($sec){
+			$section = new Section();
+			if(isset($sec["_id"]))
+				$section->id = $sec["_id"] . "";
+			if(isset($sec["uuid"]))
+				$section->uuid = $sec["uuid"];
+			if(isset($sec["name"]))
+				$section->name = $sec["name"];
+			if(isset($sec["body_md"]))
+				$section->body_md = $sec["body_md"];
+			if(isset($sec["body_html"]))
+				$section->body_html = $sec["body_html"];
+			if(isset($sec["order_ind"]))
+				$section->order_ind = $sec["order_ind"];
+
+			if(isset($sec["sections"]))
+				$section->sections = $this->getSectionsForObject($sec);
+
+			return $section;
+		}
+
 
 
 		public function getProject($id){
@@ -128,8 +162,12 @@
 
 
 			return $libraries;
+		}
 
-
+		public function getSection($projectName, $uuid){
+			$collection = $this->getCollection();
+			$sec = $collection->findOne(array('name'=> $projectName, 'sections.uuid'=> $uuid));
+			return $this->readSection($sec);
 		}
 
 
@@ -137,35 +175,6 @@
 			return strcmp($a->name, $b->name); 
 		}
 
-
-		private function getSectionsForObject($obj){
-				$sections = array();
-				if(isset($obj['sections'])){
-					foreach($obj['sections'] as $sec){
-
-
-						$section = new Section();
-						if(isset($sec["_id"]))
-							$section->id = $sec["_id"] . "";
-						if(isset($sec["name"]))
-							$section->name = $sec["name"];
-						if(isset($sec["body_md"]))
-							$section->body_md = $sec["body_md"];
-						if(isset($sec["body_html"]))
-							$section->body_html = $sec["body_html"];
-						if(isset($sec["order_ind"]))
-							$section->order_ind = $sec["order_ind"];
-
-						if(isset($sec["sections"]))
-							$section->sections = $this->getSectionsForObject($sec);
-
-						array_push($sections, $section);
-
-					}
-				}
-
-				return $sections;
-		}
 
 		function dump($var, $abort=false){
 			print_r("<pre>");

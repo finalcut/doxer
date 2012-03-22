@@ -39,8 +39,6 @@
 
 			F3::set('html_title', $project == false ? "New Project" : "Edit " . $project->name);
 
-			F3::set('project', $project);
-
 			F3::set('content', 'project/form.html');
 			$this->addF3Script('project/js/form.js');
 

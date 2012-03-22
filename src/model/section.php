@@ -5,6 +5,7 @@
 		// example of how to create your own constructor while calling the parent constructor
 		public function Section(){
 			parent::NonPersistentBean();
+
 		}
 
 		/* 
@@ -38,7 +39,7 @@
 			$sections = array();
 				foreach($a["sections"] as $sec){
 					$s = $sec->toArray();
-					array_push($sections,$s);
+					$sections[$s-uuid] = $s;
 				}
 			$a["sections"] = $sections;
 			return $a;
@@ -48,6 +49,7 @@
 		public function getDefaults(){
 			return array(
 				 'name'=>""
+				,'uuid'=> uniqid()
 				,'body_md'=>""
 				,'body_html'=>""
 				,'order_ind'=>0

@@ -16,7 +16,7 @@
 		*/
 
 		public function addSection($section){
-			array_push($this->sections,$section);
+			$this->sections[$section-uuid] = $section;
 		}
 
 
@@ -38,7 +38,7 @@
 			$sections = array();
 				foreach($a["sections"] as $sec){
 					$s = $sec->toArray();
-					array_push($sections,$s);
+					$sections[$s-uuid] = $s;
 				}
 			$a["sections"] = $sections;
 			return $a;
