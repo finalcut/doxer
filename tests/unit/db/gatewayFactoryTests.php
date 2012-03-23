@@ -1,5 +1,6 @@
 <?php
-require_once 'src/db/gatewayFactory.php';
+use \doxer\db\GatewayFactory as GatewayFactory;
+
 class GatewayFactoryTest extends PHPUnit_Framework_TestCase
 {
 
@@ -13,7 +14,7 @@ class GatewayFactoryTest extends PHPUnit_Framework_TestCase
 
 		$gw = $factory->GetProjectGateway($config);
 
-		$this->assertEquals('MongoProjectsGateway', get_class($gw));
+		$this->assertEquals('doxer\db\MongoProjectsGateway', get_class($gw));
 
 	}
 
@@ -25,7 +26,7 @@ class GatewayFactoryTest extends PHPUnit_Framework_TestCase
 		$config['collection'] = "projects";
 
 		$gw = $factory->GetProjectGateway($config);
-		$this->assertEquals('MongoProjectsGateway', get_class($gw));
+		$this->assertEquals('doxer\db\MongoProjectsGateway', get_class($gw));
 
 	}
 }

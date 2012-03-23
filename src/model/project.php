@@ -1,11 +1,14 @@
 <?php
-	include_once 'bean.php';
-	include_once 'section.php';
+
+	namespace doxer\model;
+	use marshall\model\NonPersistentBean as NonPersistentBean;
+
 	class Project extends NonPersistentBean
 	{
 		// example of how to create your own constructor while calling the parent constructor
-		public function Project(){
-			parent::NonPersistentBean();
+		public function __construct(){
+			parent::__construct();
+			$this->_id = $this->id;
 		}
 
 		/* 
@@ -16,7 +19,7 @@
 		*/
 
 		public function addSection($section){
-			$this->sections[$section-uuid] = $section;
+			$this->sections[$section->uuid] = $section;
 		}
 
 
@@ -35,12 +38,7 @@
 		public function toArray(){
 			$a = parent::toArray();
 
-			$sections = array();
-				foreach($a["sections"] as $sec){
-					$s = $sec->toArray();
-					$sections[$s-uuid] = $s;
-				}
-			$a["sections"] = $sections;
+
 			return $a;
 		}
 
@@ -48,6 +46,7 @@
 		public function getDefaults(){
 			return array(
 				 'id'=>""
+				,'_id'=>""
 				,'name'=>""
 				,'description_md'=>""
 				,'description_html'=>""

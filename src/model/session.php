@@ -1,4 +1,5 @@
 <?php
+	namespace doxer\model;
 		class Session {
 
 			public function get($key){

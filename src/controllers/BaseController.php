@@ -4,16 +4,18 @@
 		that each controller will probably need.
 	*/ 
 
-	function __autoload($class_name){
-		include $class_name . '.php';
-	}
+	namespace doxer\controllers;
 
-	require_once("model/session.php");
-	require_once("db/gatewayFactory.php");
+	use \doxer\model\Session as Session;
+	use \doxer\db\GatewayFactory as GatewayFactory;
+	use \F3 as F3;
+	use \Template as Template;
+
+
 	class BaseController {
 		public $session;
 
-		public function BaseController(){
+		public function __construct(){
 			$this->session = new Session();
 			$libraryName = $this->session->get("libraryName");
 			F3::set('libraryName', $libraryName);

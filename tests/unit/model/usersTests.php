@@ -1,5 +1,6 @@
 <?php
-	require_once 'src/model/user.php';
+
+	use \doxer\model\User as User;
 
 	class userTest extends PHPUnit_Framework_TestCase
 	{

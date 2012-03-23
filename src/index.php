@@ -16,6 +16,9 @@ F3::set('scripts', array());
 // this is a variable that will hold javascript files that you want to use F3 variables in and thus have pre-process before being downloaded
 F3::set('f3scripts',array());
 
+
+require_once('autoload.php');
+
 /* 
 	this is a smart little utility that will find your route handlers and include them auto-magically.
 	by default we assume your route handlers and controllers will be in the "controllers" directory under the project

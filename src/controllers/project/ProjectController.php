@@ -1,10 +1,16 @@
 <?php
-	require_once 'controllers/BaseController.php';
+	namespace doxer\controllers\project;
+	use \doxer\controllers\BaseController as BaseController;
+	use \doxer\model\Project as Project;
+	use \doxer\model\Section as Section;
+	use \F3 as F3;
+	use \Template as Template;
+
 	require_once 'phplib/markdown.php';
 
 	class ProjectController extends BaseController {
-		public function ProjectController(){
-			parent::BaseController();
+		public function __construct(){
+			parent::__construct();
 
 			$params = F3::get('PARAMS');
 			$project = new Project();

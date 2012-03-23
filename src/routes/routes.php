@@ -1,17 +1,8 @@
 <?php
-
-
-	require 'HomeController.php';
-	// handles calls directly to the users subdirectory..
-
-
-	F3::route('GET /', 'HomeController->home');
-
-	F3::route('GET /install', 'HomeController->install');
-
-	F3::set('ONERROR', 'HomeController->errorHandler');
-
-	F3::route('GET /markdownHelp', 'HomeController->markdownhelp');
+	F3::route('GET /', 'doxer\controllers\HomeController->home');
+	F3::route('GET /install', 'doxer\controllers\HomeController->install');
+	F3::set('ONERROR', 'doxer\controllers\HomeController->errorHandler');
+	F3::route('GET /markdownHelp', 'doxer\controllers\HomeController->markdownhelp');
 
 	/*
 		This is here for utility only.  See http://fatfree.sourceforge.net/page/optimization/keeping-javascript-and-css-on-a-healthy-diet

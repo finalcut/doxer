@@ -1,12 +1,14 @@
 <?php
-	require_once 'db/mongoProjectsGateway.php';
+
+	namespace doxer\db;
+	use doxer\db\mongoProjectsGateway as mongoProjectsGateway;
 
 	/* lame object name I know.. sue me. */
 
 
 	class GatewayFactory{
 
-		public function GatewayFactory(){
+		public function __construct(){
 		}
 
 		public function GetProjectGateway($dbsettings){

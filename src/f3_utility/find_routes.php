@@ -22,5 +22,5 @@ function includeRoutes($path){
 }
 
 
-find_files(F3::get('controllers') == null ? "controllers/" : F3::get('controllers'), '/routes.php/','includeRoutes');
+find_files(F3::get('routes') == null ? "routes/" : F3::get('routes'), '/routes.php/','includeRoutes');
 ?>	

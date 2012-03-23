@@ -1,10 +1,15 @@
 <?php
-	require_once 'controllers/BaseController.php';
+
+	namespace doxer\controllers\library;
+	use \doxer\controllers\BaseController as BaseController;
+	use \F3 as F3;
+	use \Template as Template;
+
 
 	class LibraryController extends BaseController {
 
-		public function LibraryController(){
-			parent::BaseController();
+		public function __construct(){
+			parent::__construct();
 		}
 
 

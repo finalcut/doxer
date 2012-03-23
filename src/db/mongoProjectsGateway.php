@@ -1,15 +1,19 @@
 <?php
-	require_once "db/IProjectsGateway.php";
-	require_once "model/project.php";
-	require_once "model/section.php";
-	require_once "model/library.php";
+
+	namespace doxer\db;
+	use \doxer\db\IProjectsGateway as IProjectsGateway;
+	use \doxer\model\Project as Project;
+	use \doxer\model\Section as Section;
+	use \doxer\model\Library as Library;
+	use \Mongo as Mongo;
+
 
 	class MongoProjectsGateway implements IProjectsGateway {
 
 		private $vars = array();
 
 
-		public function MongoProjectsGateway($dbsettings){
+		public function __construct($dbsettings){
 			if(isset($dbsettings["name"]))
 				$this->vars["name"] = $dbsettings["name"];
 			if(isset($dbsettings["library"]))
@@ -158,7 +162,7 @@
 				$c = new Library($name);
 				array_push($libraries, $c);
 			}
-			usort($libraries, array("Library","compare"));
+			usort($libraries, array("\doxer\model\Library","compare"));
 
 
 			return $libraries;

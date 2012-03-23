@@ -1,10 +1,13 @@
 <?php
-	include_once 'bean.php';
+
+	namespace doxer\model;
+	use marshall\model\NonPersistentBean as NonPersistentBean;
+	
 	class Section extends NonPersistentBean
 	{
 		// example of how to create your own constructor while calling the parent constructor
-		public function Section(){
-			parent::NonPersistentBean();
+		public function __construct(){
+			parent::__construct();
 
 		}
 

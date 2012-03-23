@@ -1,10 +1,17 @@
 <?php
-	require_once 'controllers/BaseController.php';
+	namespace doxer\controllers\section;
+
+	use \doxer\controllers\BaseController as BaseController;
+	use \doxer\model\Project as Project;
+	use \doxer\model\Section as Section;
+	use \F3 as F3;
+	use \Template as Template;
+
 	require_once 'phplib/markdown.php';
 
 	class SectionController extends BaseController {
-		public function SectionController(){
-			parent::BaseController();
+		public function __construct(){
+			parent::__construct();
 
 			$params = F3::get('PARAMS');
 			$project = new Project();
@@ -21,7 +28,7 @@
 
 
 		function form(){
-			$section = F3::get('section');
+			$section = \F3::get('section');
 
 			F3::set('html_title', $section == false ? "New Section" : "Edit " . $section->name);
 
@@ -35,7 +42,7 @@
 
 		// just tweaks the title and description texts..
 		function save(){
-			$data = F3::get('POST');
+			$data = \F3::get('POST');
 			$data['id'] = $data['projectId'] == "" ? 0 : $data['projectId'];
 
 
@@ -52,7 +59,7 @@
 			$project->initPropertiesFromArray($data);
 			$project = $db->saveProject($project);
 
-			F3::reroute('/' . F3::get('libraryName') . '/' . $project->name);
+			\F3::reroute('/' . \F3::get('libraryName') . '/' . $project->name);
 */
 
 		}

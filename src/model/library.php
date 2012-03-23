@@ -1,10 +1,13 @@
 <?php
-	include_once 'bean.php';
+	
+	namespace doxer\model;
+	use marshall\model\NonPersistentBean as NonPersistentBean;
+
 	class Library extends NonPersistentBean
 	{
 		// example of how to create your own constructor while calling the parent constructor
-		public function Library($name){
-			parent::NonPersistentBean();
+		public function __construct($name){
+			parent::__construct();
 			$this->name = $name;
 			$this->oldname = $name;
 		}

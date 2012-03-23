@@ -1,7 +1,9 @@
 <?php
-require_once 'src/db/mongoProjectsGateway.php';
-require_once 'src/model/project.php';
-require_once 'src/model/section.php';
+
+use \doxer\db\MongoProjectsGateway as MongoProjectsGateway;
+use \doxer\model\Project as Project;
+use \doxer\model\Section as Section;
+use \Mongo as Mongo;
 
 class mongoGatewayTest extends PHPUnit_Framework_TestCase
 {

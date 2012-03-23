@@ -1,9 +1,8 @@
 <?php
 session_start();
 
-	require_once 'src/model/session.php';
-	require_once 'src/model/user.php';
-
+	use \doxer\model\Session as Session;
+	use \doxer\model\User as User;
 
 	class sessionTest extends PHPUnit_Framework_TestCase
 	{

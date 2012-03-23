@@ -1,5 +1,8 @@
 <?php
-	require_once 'controllers/BaseController.php';
+
+	namespace doxer\controllers;
+	use \F3 as F3;
+	use \Template as Template;
 
 	class HomeController extends BaseController {
 

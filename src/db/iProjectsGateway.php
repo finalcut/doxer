@@ -1,4 +1,5 @@
 <?php
+	namespace doxer\db;
 	/*
 		it is true that this entire project will probably only ever be used by myself AND it will probably 
 		always be written using mongodb in the backend; I figured; why not abstract this part out so that
