@@ -6,6 +6,7 @@
 	use \doxer\model\Section as Section;
 	use \doxer\model\Library as Library;
 	use \Mongo as Mongo;
+	use \MongoId as MongoId;
 
 
 	class MongoProjectsGateway implements IProjectsGateway {
@@ -128,6 +129,13 @@
 			}
 
 			$data['id'] = $data['_id'];
+
+			// make sure that we don't save an object with a empty string for the _id; forcing mongo to generate one.
+			if($data['id'] == ""){
+				unset($data['_id']);
+			}
+			unset($data['id']);
+
 
 			$ret = $col->save($data); // this does an update or insert.. I guess based on the _id...""
 			$project->id = $data["_id"].""; // according to documentation the _id will be injected into the array..nice!

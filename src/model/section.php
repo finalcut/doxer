@@ -32,7 +32,8 @@
 
 
 		public function addChildSection($section){
-			array_push($this->sections,$section);
+			//$this->sections[$section->uuid] = $section;
+			array_push($this->sections, $section);
 		}
 
 
@@ -42,7 +43,8 @@
 			$sections = array();
 				foreach($a["sections"] as $sec){
 					$s = $sec->toArray();
-					$sections[$s-uuid] = $s;
+					//$sections[$s-uuid] = $s;
+					array_push($sections, $s);
 				}
 			$a["sections"] = $sections;
 			return $a;

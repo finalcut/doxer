@@ -34,6 +34,71 @@ class mongoGatewayTest extends PHPUnit_Framework_TestCase
 
 	}
 
+
+	public function testSaveSection(){
+		// I want to be able to save a section in the project document without updating the entire document which I don't think is possible
+		// given my current schema definition;
+
+		// this isn't a test so much as a proof of concept so I understand how mongodb works.
+		$p = array();
+		$p["name"] = "temp project";
+		$p["description_md"] = "*hi there guys*";
+		$p["description_html"] = "<em>hi there guys</em>";
+		$p["sections"] = array();
+
+		$s = array();
+		$s["uuid"] = uniqid();
+		$s["name"] = "section 1 test";
+		$s["body_md"] = "hello, mr magoo";
+		$s["body_html"] = "hello, mr magoo";
+		$s["order_ind"] = "10";
+		$s["sections"] = array();
+
+		array_push($p["sections"], $s);
+		
+		$s1 = array();
+		$s1["uuid"] = uniqid();
+		$s1["name"] = "section 2";
+		$s1["body_md"] = "hello";
+		$s1["body_html"] = "hello";
+		$s1["order_ind"] = "1";
+		$s1["sections"] = array();
+
+		array_push($p["sections"],$s1);
+
+
+		$project = new Project();
+		$project->initPropertiesFromArray($p);
+		$project = $this->gw->saveProject($project);
+
+		$p["id"] = $project->id;
+
+		$p["sections"][0]["order_ind"] = 20;
+
+		$project->initPropertiesFromArray($p);
+		$project = $this->gw->saveProject($project);
+
+
+		$s2 = array();
+		$s2["uuid"] = uniqid();
+		$s2["name"] = "section 3";
+		$s2["body_md"] = "hello three";
+		$s2["body_html"] = "hello three";
+		$s2["order_ind"] = "3";
+		$s2["sections"] = array();
+
+		array_push($p["sections"],$s2);
+		$project->initPropertiesFromArray($p);
+		$project = $this->gw->saveProject($project);
+
+
+		print_r($p);
+
+
+
+
+	}
+
 	public function testWriteProject(){
 
 

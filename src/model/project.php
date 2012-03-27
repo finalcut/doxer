@@ -19,7 +19,8 @@
 		*/
 
 		public function addSection($section){
-			$this->sections[$section->uuid] = $section;
+			//$this->sections[$section->uuid] = $section;
+			array_push($this->sections, $section);
 		}
 
 
