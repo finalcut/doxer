@@ -8,7 +8,6 @@
 		// example of how to create your own constructor while calling the parent constructor
 		public function __construct(){
 			parent::__construct();
-			$this->_id = $this->id;
 		}
 
 		/* 
@@ -46,11 +45,11 @@
 
 		public function getDefaults(){
 			return array(
-				 'id'=>""
-				,'_id'=>""
+				'_id'=>""
 				,'name'=>""
 				,'description_md'=>""
 				,'description_html'=>""
+				,'type'=>"project"
 				,'sections'=>array()
 			);
 		}

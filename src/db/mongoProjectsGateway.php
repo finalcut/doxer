@@ -46,7 +46,7 @@
 		private function readProject($proj){
 			$project = new Project();
 
-			$project->id = $proj['_id'] . ""; // cast to a string
+			$project->_id = $proj['_id'] . ""; // cast to a string
 
 
 			if(isset($proj['name']))
@@ -62,29 +62,16 @@
 			if($project->description_md == "")
 				$project->description_html = "";
 
-			$project->sections = $this->getSectionsForObject($proj);
 
 			return $project;
-		}
-
-		private function getSectionsForObject($obj){
-				$sections = array();
-				if(isset($obj['sections'])){
-					foreach($obj['sections'] as $sec){
-						$section = $this->readSection($sec);
-						$sections[$section->uuid] = $section;
-					}
-				}
-
-				return $sections;
 		}
 
 		private function readSection($sec){
 			$section = new Section();
 			if(isset($sec["_id"]))
-				$section->id = $sec["_id"] . "";
-			if(isset($sec["uuid"]))
-				$section->uuid = $sec["uuid"];
+				$section->_id = $sec["_id"] . "";
+			if(isset($sec["parent_id"]))
+				$section->parent_id = $sec["parent_id"];
 			if(isset($sec["name"]))
 				$section->name = $sec["name"];
 			if(isset($sec["body_md"]))
@@ -94,24 +81,48 @@
 			if(isset($sec["order_ind"]))
 				$section->order_ind = $sec["order_ind"];
 
-			if(isset($sec["sections"]))
-				$section->sections = $this->getSectionsForObject($sec);
-
 			return $section;
 		}
 
 
+		public function getSection($id){
+			$sec = $this->readSection($this->getObject($id, "section"));
+			$sec->sections = $this->getSectionsForParent($sec->_id);
+			return $sec;
+		}
+
 
 		public function getProject($id){
+			$proj = $this->readProject($this->getObject($id, "project"));
+			$proj->sections = $this->getSectionsForParent($proj->_id);
+			return $proj;
+
+		}
+
+		private function getObject($id, $type){
 			$collection = $this->getCollection();
-			$proj = $collection->findOne(array('_id' => new MongoId($id)));
-			return $this->readProject($proj);
+			return $collection->findOne(array('_id' => new MongoId($id), 'type'=>$type));
 		}
 
 		public function getProjectByName($projectName){
 			$collection = $this->getCollection();
-			$proj = $collection->findOne(array('name' => $projectName));
+			$proj = $collection->findOne(array('name' => $projectName, 'type'=>'project'));
+			$project = $this->readProject($proj);
+			$project->sections = $this->getSectionsForParent($project->_id);
 			return $this->readProject($proj);
+		}
+
+
+		private function getSectionsForParent($id){
+			$collection = $this->getCollection();
+			$sec = $collection->find(array('parent_id'=>$id));
+			$sections = array();
+			foreach($sec as $s){
+				$section = $this->readSection($s);
+				$section->sections = $this->getSectionsForParent($section->_id);
+				array_push($sections, $section);
+			}
+			return $sections;
 		}
 
 
@@ -119,27 +130,34 @@
 			$col = $this->getCollection();
 
 			$data = $project->toArray();
-			if(isset($data["id"]) && $data["id"] != ""){
-				$data["_id"] = new MongoId($data["id"]);
-			} else {
+			if(!isset($data["_id"]) || $data["_id"] == ""){
 				$temp = $this->getProjectByName($data["name"]);
-				if($temp->id != ""){
-					$data["_id"] = new MongoId($temp->id);
+				if($temp->_id != ""){
+					$data["_id"] = new MongoId($temp->_id);
 				}
 			}
-
-			$data['id'] = $data['_id'];
-
 			// make sure that we don't save an object with a empty string for the _id; forcing mongo to generate one.
-			if($data['id'] == ""){
+			if($data['_id'] == ""){
 				unset($data['_id']);
 			}
-			unset($data['id']);
-
+			unset($data["sections"]);
 
 			$ret = $col->save($data); // this does an update or insert.. I guess based on the _id...""
-			$project->id = $data["_id"].""; // according to documentation the _id will be injected into the array..nice!
+			$project->_id = $data["_id"].""; // according to documentation the _id will be injected into the array..nice!
+
 			return $project;
+		}
+
+		public function saveSection($section){
+			$col = $this->getCollection();
+			$data = $section->toArray();
+			unset($data["sections"]);
+			if($data["_id"] == "")
+				unset($data["_id"]);
+
+			$ret = $col->save($data);
+			$section->_id = $data["_id"];
+			return $section;
 		}
 
 
@@ -174,12 +192,6 @@
 
 
 			return $libraries;
-		}
-
-		public function getSection($projectName, $uuid){
-			$collection = $this->getCollection();
-			$sec = $collection->findOne(array('name'=> $projectName, 'sections.uuid'=> $uuid));
-			return $this->readSection($sec);
 		}
 
 

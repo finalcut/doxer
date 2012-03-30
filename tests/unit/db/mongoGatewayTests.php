@@ -12,6 +12,7 @@ class mongoGatewayTest extends PHPUnit_Framework_TestCase
 	private $db;
 	private $coll;
 	private $gw;
+	private $p;
 
 	protected function setUp(){
 			$mongoDB = new Mongo();
@@ -34,8 +35,8 @@ class mongoGatewayTest extends PHPUnit_Framework_TestCase
 
 	}
 
-
-	public function testSaveSection(){
+/*
+	private function testSaveSection(){
 		// I want to be able to save a section in the project document without updating the entire document which I don't think is possible
 		// given my current schema definition;
 
@@ -93,47 +94,66 @@ class mongoGatewayTest extends PHPUnit_Framework_TestCase
 
 
 		print_r($p);
+	}
+*/
 
 
+	private function createProject(){
+		$this->p = array();
+		$this->p["name"] = "temp project";
+		$this->p["description_md"] = "*hi there guys*";
+		$this->p["description_html"] = "<em>hi there guys</em>";
+		$this->p["sections"] = array();
+
+		$project = new Project();
+		$project->initPropertiesFromArray($this->p);
 
 
+		$project = $this->gw->saveProject($project);
+		$this->p["_id"] = $project->_id;
+
+		return $project;
 	}
 
+/*
 	public function testWriteProject(){
+		$project = $this->createProject();
 
-
-		$p = array();
-		$p["name"] = "temp project";
-		$p["description_md"] = "*hi there guys*";
-		$p["description_html"] = "<em>hi there guys</em>";
-		$p["sections"] = array();
-
+	}
+*/
+	public function testWriteSection(){
+		$project = $this->createProject();
 		$s = array();
-		$s["uuid"] = uniqid();
+		$s["parent_id"] = $project->_id;
 		$s["name"] = "section 1 test";
 		$s["body_md"] = "hello, mr magoo";
 		$s["body_html"] = "hello, mr magoo";
 		$s["order_ind"] = "10";
 		$s["sections"] = array();
 
-		array_push($p["sections"], $s);
 
 
-		$project = new Project();
-		$project->initPropertiesFromArray($p);
+		$section = new Section();
+		$section->initPropertiesFromArray($s);
+		$this->gw->saveSection($section);
+		$s["_id"] = $section->_id;
+
+		array_push($this->p["sections"], $s);
+
+		$p = $this->gw->getProject($project->_id);
 
 
-		$project = $this->gw->saveProject($project);
+		$p2 = "";
+		print_r($p2);
 
-		$p["id"] = $project->id;
+		$p2 = $this->gw->getProjectByName($project->name);
 
 
-		$this->getProjectTestHelper($p);
-
+		print_r($p2);
 
 	}
-
-	public function testGetProjectsWithSingleProjectInStore(){
+/*
+	private function testGetProjectsWithSingleProjectInStore(){
 
 		$p = array();
 		$p["name"] = "test project";
@@ -142,7 +162,6 @@ class mongoGatewayTest extends PHPUnit_Framework_TestCase
 		$p["sections"] = array();
 
 		$s = array();
-		$s["uuid"] = uniqid();
 		$s["name"] = "section 1";
 		$s["body_md"] = "hello";
 		$s["body_html"] = "hello";
@@ -157,7 +176,7 @@ class mongoGatewayTest extends PHPUnit_Framework_TestCase
 	}
 
 
-	public function testGetProjectsWithMultipleProjectsInStore(){
+	private function testGetProjectsWithMultipleProjectsInStore(){
 		$p1 = array();
 		$p1["name"] = "test project";
 		$p1["description_md"] = "*hi*";
@@ -202,7 +221,7 @@ class mongoGatewayTest extends PHPUnit_Framework_TestCase
 		$this->getProjectTestHelper($p, 0);
 	}
 
-
+*/
 	private function getProjectTestHelper($baseProjectArray, $idx=0){
 		if(!$idx)
 			$idx = 0;
@@ -231,7 +250,7 @@ class mongoGatewayTest extends PHPUnit_Framework_TestCase
 
 
 	}
-
+/*
 	public function testGetLibraries(){
 		$altLibrary = "alternateReality"; // remember; collections can't have a period (.)  or a space in the name..
 		$this->db->createCollection($altLibrary);
@@ -246,9 +265,9 @@ class mongoGatewayTest extends PHPUnit_Framework_TestCase
 		$this->db->dropCollection($altLibrary);
 
 	}
-
+*/
 	public function tearDown(){
-		$this->db->dropCollection($this->config['library']);
+	//	$this->db->dropCollection($this->config['library']);
 	}
 
 }

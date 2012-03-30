@@ -24,23 +24,20 @@ Does this really belong here? No, but c'est la vie.  As each project is basicall
 
 ```javascript
 {
-	id: mongodb generatedId
+	_id: mongodb generatedId
 	name: "project name",
 	description_md: "summary description in markdown",
 	description_html: "summary description in html"
-	sections: [
-			{
-				id: mongodb generatedId
-				name: "name",
-				body_md: "the markdown version of the content",
-				body_html: "the html version of the content"
-				order_ind: "some number indicating how to order the sections at this level"
-				children: [
-						// array of section elements..
-					]
-		}
-		]
 }
+{
+	_id: mongodb generatedId
+	parent_id: string value of project or section that is parent to this section.
+	name: "section name",
+	body_md: "the markdown version of the sections content",
+	body_html: "the html version of the sections content"
+	order_ind: "some number indicating how to order the sections at this level"
+}
+
 ```
 
 

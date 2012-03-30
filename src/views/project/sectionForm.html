@@ -1,6 +1,6 @@
 <form method="post" action="{{@relroot}}/{{@libraryName}}/{{@projectName}}/{{@section->uuid}}/save" class="form well">
-	<input type="hidden" name="projectId" value="{{@project->id}}" />
-	<input type="hidden" name="uuid" value="{{@seciton->uuid}}" />
+	<input type="hidden" name="parentId" value="{{@section->parent_id}}" />
+	<input type="hidden" name="_id" value="{{@section->_id}}" />
 	<fieldset>
 			<legend></legend>
 				<div class="control-group span6">

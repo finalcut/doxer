@@ -19,11 +19,10 @@
 				$projectName = $params['projectName'];
 				$db = $this->getDB($this->session->get("libraryName"));
 				$project = $db->getProjectByName($projectName);
-
 			}
 
 			$this->session->set('projectName', $project->name);
-			$this->session->set('projectId', $project->id);
+			$this->session->set('projectId', $project->_id);
 
 			F3::set('project', $project);
 			F3::set('projectName', $this->session->get("projectName"));
@@ -58,8 +57,8 @@
 			$db = $this->getDB($this->session->get("libraryName"));
 
 
-			$data['id'] = $data['projectId'] == "" ? 0 : $data['projectId'];
-			$project = $db->getProject($data['id']);
+			$data['_id'] = $data['_id'] == "" ? 0 : $data['_id'];
+			$project = $db->getProject($data['_id']);
 
 			$data['description_html'] = markdown($data['description_md']);
 

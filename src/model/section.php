@@ -8,7 +8,6 @@
 		// example of how to create your own constructor while calling the parent constructor
 		public function __construct(){
 			parent::__construct();
-
 		}
 
 		/* 
@@ -53,11 +52,13 @@
 
 		public function getDefaults(){
 			return array(
-				 'name'=>""
-				,'uuid'=> uniqid()
+				 '_id'=>""
+				,'name'=>""
+				,'parent_id'=>""
 				,'body_md'=>""
 				,'body_html'=>""
 				,'order_ind'=>0
+				,'type'=>"section"
 				,'sections'=>array()
 			);
 		}
