@@ -40,7 +40,34 @@ Does this really belong here? No, but c'est la vie.  As each project is basicall
 
 ```
 
+# Setting Up Your Development Environment
+If you are going to fork this then you'd probably like to know what php libraries the "build" proces is dependant on.  I don't know, maybe this is de rigueur for most PHP developers but it was all new to me.
 
+You'll need twitter bootstrap; download it and put it in a sibling directory to the main "doxer" directory.   Everything else you may need to install will be done via PEAR.
+
+I use jenkins as my Continuous Integration Server and I based my initial efforts and organizing the code on the stuff at http://jenkins-php.org; however, please note that not everything on that site is exactly right.  I'll try to point you in the right direction for getting things working on your dev machine - sans Jenkins forthwith.
+
+1. Install Xdebug - http://xdebug.org/
+1. Install PHP_CodeCoverage - https://github.com/sebastianbergmann/php-code-coverage
+1. Install php-timer - https://github.com/sebastianbergmann/php-timer
+1. Install PHPUNIT from https://github.com/sebastianbergmann/phpunit - the installation instructions are in that github's readme.
+1. Install phploc -  https://github.com/sebastianbergmann/phploc
+1. Install phpcpd - https://github.com/sebastianbergmann/phpcpd
+1. Install php mess detector - http://phpmd.org/download/index.html
+1. Install phpdepend - http://pdepend.org/documentation/getting-started.html
+1. Install php-timer - https://github.com/sebastianbergmann/php-timer
+1. Install php code sniffer - http://pear.php.net/package/PHP_CodeSniffer/download
+1. install php code browser - http://blog.mayflower.de/archives/464-PHP_CodeBrowser-Release-version-0.1.0.html
+
+I know, that's a lot of stuff.  But it is useful for a lot of projects other than this one (well, PHP projects at least).   If you don't want to install it all then just grab PHP Unit and when you build specify `ant phpunit` and it will just run the unit tests during the build process.
+
+1. install phpab (Autoload) - https://github.com/theseer/Autoload
+
+phpab is something I can not recommend highly enough.  It will automatically generate your autoload.php files which are absolutely required when using php namespaces.  I've included an autoload.sh file (and .bat) which you should be able to use to generate your autoload files (it creates two, one in the src/ directory and one in the tests/ directrory).
+
+Please remember all of this is just for your dev environment.  You'll only be deploying the contents of the src/ directory and you won't need any of these extra php libraries on your production server.
+
+If you run into any problems getting things setup and running please let me know.  I have not figured out how to get all of the unit testing libraries to work in windows so windows folks you may want to pare down your stuff to just the unit testing and phpab.
 
 
 
