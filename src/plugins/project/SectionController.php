@@ -37,7 +37,7 @@
 
 
 			F3::set('content', 'project/views/sectionForm.html');
-			$this->addF3Script('project/views/js/sectionForm.js');
+			$this->addF3Script('project/js/sectionForm.js');
 
 			echo Template::serve('core/layout/site.html');
 		}
