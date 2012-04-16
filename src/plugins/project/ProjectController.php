@@ -41,8 +41,8 @@
 
 			F3::set('html_title', $project == false ? "New Project" : "Edit " . $project->name);
 
-			F3::set('content', 'project/fviews/orm.html');
-			$this->addF3Script('project/views/js/form.js');
+			F3::set('content', 'project/views/form.html');
+			$this->addF3Script('project/js/form.js');
 
 			echo Template::serve('core/layout/site.html');
 		}
@@ -83,7 +83,7 @@
 			however the listing function in this file can still call this becuase it basically hardcodes the resource value in the path variable as listing.html
 		*/
 		private function loadresource($path, $ext){
-			F3::set('content','project' . $path . F3::get('PARAMS["resource"]') . $ext);
+			F3::set('content','project/views' . $path . F3::get('PARAMS["resource"]') . $ext);
 				echo Template::serve('core/layout/bare.html');
 			
 		}
