@@ -1,6 +1,6 @@
 <?php
 
-	use \doxer\model\User as User;
+	use \doxer\plugins\user\model\User as User;
 
 	class userTest extends PHPUnit_Framework_TestCase
 	{

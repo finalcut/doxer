@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-	use \doxer\model\Session as Session;
-	use \doxer\model\User as User;
+	use \marshall\core\Session as Session;
+	use \doxer\plugins\user\model\User as User;
 
 	class sessionTest extends PHPUnit_Framework_TestCase
 	{

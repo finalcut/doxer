@@ -1,8 +1,8 @@
 <?php
 
 use \doxer\db\MongoProjectsGateway as MongoProjectsGateway;
-use \doxer\model\Project as Project;
-use \doxer\model\Section as Section;
+use \doxer\plugins\project\model\Project as Project;
+use \doxer\plugins\project\model\Section as Section;
 use \Mongo as Mongo;
 
 class mongoGatewayTest extends PHPUnit_Framework_TestCase
