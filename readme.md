@@ -69,6 +69,38 @@ Please remember all of this is just for your dev environment.  You'll only be de
 
 If you run into any problems getting things setup and running please let me know.  I have not figured out how to get all of the unit testing libraries to work in windows so windows folks you may want to pare down your stuff to just the unit testing and phpab.
 
+# Code Organization
+There are quite a few directories in the src/ directory (and the f3 directory if you don't already have the Fat Free Framework [F3] in production) but, for the most part, you should be able to ignore them and just focus on the /plugins directory if you want to change or extend the behavior of the application.   
+
+* /cache  - this directory is used by the F3 (fat free framework) and only if you turn on caching in the config.cfg; make sure to chmod 777 if you use it.
+* /core - these are some core components I am using across a variety of projects.  For the most part you shouldn't add things to this directory unless the class is generic enough to use in other projects that use the same structure/framework as this one.  Since I havent' really released my "boilerplate" application yet there shouldn't be any need for you to add classes to this directory
+* /db - F3 actually provides a vareity of db abstraction mechanisms including one for mongo.  However, wanted to roll my own for this project.  I intentionally went genericish here so that other persistence mechanisms could be used via the toggle of a config setting.
+* /f3_utility - this is just something I use to autoload all of the routes into F3.
+* /img - any images we are using.  I use twitter bootstrap and this is where I put the glyphicons.  I should probably just have this in the boostrap directory and let you use the ones that come with bootstrap.
+* /lib - the only external js libraries I'm using go in here.   Right now that is MarkdownDeep - http://www.toptensoftware.com/markdowndeep/  I should probably include jquery here as well but I don't. I have jquery in a subdirectory under my boostrap directory as I share the bootstrap directory across many projects.
+* /phplib - external php libraries.  This is just the php markdown library.
+* /plugins - See the section on PLUGINS later.
+* /temp - also used by F3 - this NEEDS to be there and needs to be CHMOD 777 - if you don't have this directory nothing will show up in the browser.
+* .htaccess - required to get routing to work
+* autoload.php - you should autogenerate this with phpab - https://github.com/theseer/Autoload
+* config.cfg - all of the configuration information you could ever want
+* index.php - entry point to the application.  At most you should have to edit line 6 but you shouldn't have to edit this file at all. 
+
+
+## PLUGINS
+
+I've attempted to make this all work in a somewhat modular way.  I'm sure there is room for improvement here.  Basically each directory under the /plugins directoy represents a subset of application functionality.   The /plugins/core directory is specific to layout and look and feel for the most part.   Each of the others is logically organized based on what part of the application you are in.
+
+Each plugin MUST have the following files:
+
+* _routes.php - defines what actions within the application this plugin is responsible for.
+* _plugin.php - defines the plugin and how, if at all, it should integrate with the main navigation bar.
+
+Both _routes.php and _plugin.php are called before the F3 subsystem does it's magic so you can do a little bit of pre-execution logic in the _plugin.php file if you need to.  It is advised you minimize this however.
+
+
+
+
 
 
 [pd]:https://www.parse.com/docs/ios_guide
