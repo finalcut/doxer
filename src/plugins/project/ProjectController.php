@@ -1,8 +1,8 @@
 <?php
-	namespace doxer\controllers\project;
-	use \doxer\controllers\BaseController as BaseController;
-	use \doxer\model\Project as Project;
-	use \doxer\model\Section as Section;
+	namespace doxer\plugins\project;
+	use \marshall\core\BaseController as BaseController;
+	use \doxer\plugins\project\model\Project as Project;
+	use \doxer\plugins\project\model\Section as Section;
 	use \F3 as F3;
 	use \Template as Template;
 
@@ -23,20 +23,17 @@
 
 			$this->session->set('projectName', $project->name);
 			$this->session->set('projectId', $project->_id);
-
 			F3::set('project', $project);
 			F3::set('projectName', $this->session->get("projectName"));
-
 		}
 
 
 		function foo(){
-
 			F3::set('html_title', "Project: " . $this->session->get('projectName'));
-			F3::set('subNav', 'project/head.html');
-			F3::set('content','project/render.html');
-			F3::set('projectNav', 'project/nav.html');
-			echo Template::serve('layout/site.html');
+			F3::set('subNav', 'project/views/head.html');
+			F3::set('content','project/views/render.html');
+			F3::set('projectNav', 'project/views/nav.html');
+			echo Template::serve('core/layout/site.html');
 		}
 
 		function form(){
@@ -44,10 +41,10 @@
 
 			F3::set('html_title', $project == false ? "New Project" : "Edit " . $project->name);
 
-			F3::set('content', 'project/form.html');
-			$this->addF3Script('project/js/form.js');
+			F3::set('content', 'project/fviews/orm.html');
+			$this->addF3Script('project/views/js/form.js');
 
-			echo Template::serve('layout/site.html');
+			echo Template::serve('core/layout/site.html');
 		}
 
 
@@ -87,7 +84,7 @@
 		*/
 		private function loadresource($path, $ext){
 			F3::set('content','project' . $path . F3::get('PARAMS["resource"]') . $ext);
-				echo Template::serve('layout/bare.html');
+				echo Template::serve('core/layout/bare.html');
 			
 		}
 	}

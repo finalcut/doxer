@@ -4,9 +4,6 @@
   	<script src="{{@bootstraphome}}/js/jquery.js" type="text/javascript"></script>
 	<script src="{{@bootstraphome}}/js/bootstrap.min.js" type="text/javascript"></script>
 
-	<script type="text/javascript" src="{{@relroot}}/lib/MarkdownDeep/MarkdownDeep.min.js"></script>
-	<script type="text/javascript" src="{{@relroot}}/lib/MarkdownDeep/MarkdownDeepLib.min.js"></script>
-
 	<F3:check if="{{@useBackbone}}"><F3:true>
 	<script src="{{@relroot}}/lib/underscore-min.js" type="text/javascript"></script>
 	<script src="{{@relroot}}/lib/backbone-min.js" type="text/javascript"></script>
@@ -17,16 +14,21 @@
 	</F3:repeat>
 
 	<F3:repeat group="{{@scripts}}" value="{{@script}}">
-		<script src="{{@relroot}}/views/{{@script}}" type="text/javascript"></script>
+		<script src="{{@relroot}}/plugins/{{@script}}" type="text/javascript"></script>
 	</F3:repeat>
+
 
 	<F3:check if="{{@useJSFormValidation}}"><F3:true>
 
 	<script src="{{@bootstraphome}}/js/plugins/jquery.validate.min.js" type="text/javascript"></script>
-
-
 	<script type="text/javascript">
+
+		//override some default validator settings to work better with bootstrap
 		$(document).ready(function(){
+			jQuery.validator.setDefaults({ 
+			    errorElement: "span",
+			    errorClass: "error" 
+			});
 			// turn validation on for every form on the page
 			$("form").validate();
 		});
@@ -40,15 +42,73 @@
 	<script src="{{@bootstraphome}}/js/plugins/input-mask.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$.mask.definitions["~"]="9";
+			$.mask.definitions["m"] = "[ 01]";
+			$.mask.definitions["d"] = "[ 0123]";
 			// default any input masks:
-			$('.date').mask("99/99/9999");
+			$('.date').mask("m9/d9/2019");
 			$('.phone').mask("(999) 999-9999");
-			$('.ssn').mask("999-99.9999");
-			$('.money').mask("99999.99");
+			$('.ssn').mask("999-99-9999");
+			//$('.money').mask("9.99");
+			$('.901').mask('~01-99-9999');
+			$('.number').mask("9?9999");
 		});
 	</script>
 	
 	</F3:true></F3:check>
 
+
+
+
+	<script type="text/javascript">
+		function openMuFeedback(){
+				var o = $('#mufeedbackDialog');
+				if(o.length >0) {
+					o.remove();
+				}
+
+				var p = "<div class='modal hide fade' id='mufeedbackDialog'>";
+				p += "<div class='modal-header'><a class='close' data-dismiss='modal'>x</a><h3>Report a Problem with the Website</h3></div>"
+				p += "<div class='modal-body'><form id='mufeedbackForm' method='post' action='#'><div class='row'><textarea name='comments' style='height: 300px; width: 100%;'></textarea></div></form></div>";
+				p += "<div class='modal-footer'><a id='mufeedbacksubmit' href-'#' class='btn btn-primary'>Submit Problem</a><a id='mufeedbackcancel' href='#' class='btn'>Close</a></div>";
+				$("body").append(p);
+
+				var closemufeedback = function(){
+					var m = $('#mufeedbackDialog');
+					if(m.length){
+						m.modal('hide');
+						m.remove();
+					}
+				}
+
+				$('#mufeedbacksubmit').click(function(){
+						var url = 'http://localhost/mufeedback/submission.php';
+						$.ajax({
+							type: 'POST',
+							url: url,
+							data: $('#mufeedbackForm').serializeArray(),
+							complete: closemufeedback
+						});
+				});
+
+				$('#mufeedbackcancel').click(closemufeedback);
+
+
+
+				$('#mufeedbackDialog').modal();
+				return false;
+
+		}
+
+		var html = "<br style='clear: both;' /><div id='mufeedbackbutton' style='text-align: center; display: block; border: 1px solid #ddd; background: #eee; position: fixed; bottom:0; right:0; width: 150px;'><a href='#' onclick='return openMuFeedback();'>Website Problem?</a></div>";
+		$("body").append(html);
+
+	</script>
+
+
+
+
+	<!-- make sure all onload calls are handled properly -->
+	<script type="text/javascript">$.each(q,function(i,f){$(f)})</script>
    </body>
 </html>

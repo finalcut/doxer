@@ -1,7 +1,7 @@
 <?php
 	
-	namespace doxer\model;
-	use marshall\model\NonPersistentBean as NonPersistentBean;
+	namespace doxer\plugins\library\model;
+	use marshall\core\NonPersistentBean as NonPersistentBean;
 
 	class Library extends NonPersistentBean
 	{

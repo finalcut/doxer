@@ -1,6 +1,6 @@
 <?php
 
-	namespace marshall\model;
+	namespace marshall\core;
 	/* 
 		this class should only be inheirited by model objects that don't have some form of persistence
 		since we use the F3 there are nice built in options for handling attribute definitions etc using

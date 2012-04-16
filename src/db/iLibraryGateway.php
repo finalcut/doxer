@@ -7,16 +7,10 @@
 		which would otherwise have to know about interfacing with the object model returned from mongo.
 
 	*/
-	interface IProjectsGateway{
+	interface ILibraryGateway{
+		public function getLibraries();
 
-		public function getProjects();
-
-		public function getProject($id);
-
-		public function getProjectByName($projectName);
-
-		public function saveProject($project);
-
+		public function saveLibrary($libraryName);
 	}
 
 ?>

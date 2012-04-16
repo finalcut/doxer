@@ -1,8 +1,13 @@
 <?php
-	F3::route('GET /', 'doxer\controllers\HomeController->home');
-	F3::route('GET /install', 'doxer\controllers\HomeController->install');
-	F3::set('ONERROR', 'doxer\controllers\HomeController->errorHandler');
-	F3::route('GET /markdownHelp', 'doxer\controllers\HomeController->markdownhelp');
+	// register the plugin:
+	$plugin = new \doxer\plugins\home\_plugin();
+
+
+
+	F3::route('GET /', 'doxer\plugins\home\HomeController->home');
+	F3::route('GET /install', 'doxer\plugins\home\HomeController->install');
+	F3::set('ONERROR', 'doxer\plugins\home\HomeController->errorHandler');
+	F3::route('GET /markdownHelp', 'doxer\plugins\home\HomeController->markdownhelp');
 
 	/*
 		This is here for utility only.  See http://fatfree.sourceforge.net/page/optimization/keeping-javascript-and-css-on-a-healthy-diet

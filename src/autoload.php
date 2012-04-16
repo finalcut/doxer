@@ -7,22 +7,31 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
-                'doxer\\controllers\\basecontroller' => '/controllers/BaseController.php',
-                'doxer\\controllers\\homecontroller' => '/controllers/HomeController.php',
-                'doxer\\controllers\\library\librarycontroller' => '/controllers/library/LibraryController.php',
-                'doxer\\controllers\\project\projectcontroller' => '/controllers/project/ProjectController.php',
-                'doxer\\controllers\\section\sectioncontroller' => '/controllers/section/SectionController.php',
                 'doxer\\db\\gatewayfactory' => '/db/gatewayFactory.php',
+                'doxer\\db\\ilibrarygateway' => '/db/iLibraryGateway.php',
                 'doxer\\db\\iprojectsgateway' => '/db/iProjectsGateway.php',
+                'doxer\\db\\mongolibrarygateway' => '/db/mongoLibraryGateway.php',
                 'doxer\\db\\mongoprojectsgateway' => '/db/mongoProjectsGateway.php',
-                'doxer\\model\\library' => '/model/Library.php',
-                'doxer\\model\\project' => '/model/Project.php',
-                'doxer\\model\\section' => '/model/Section.php',
-                'doxer\\model\\session' => '/model/Session.php',
-                'doxer\\model\\user' => '/model/User.php',
-                'marshall\\model\\nonpersistentbean' => '/model/NonPersistentBean.php'
-
-
+                'doxer\\plugins\\home\\_plugin' => '/plugins/home/_plugin.php',
+                'doxer\\plugins\\home\\homecontroller' => '/plugins/home/HomeController.php',
+                'doxer\\plugins\\library\\_plugin' => '/plugins/library/_plugin.php',
+                'doxer\\plugins\\library\\librarycontroller' => '/plugins/library/LibraryController.php',
+                'doxer\\plugins\\library\\model\\library' => '/plugins/library/model/library.php',
+                'doxer\\plugins\\project\\_plugin' => '/plugins/project/_plugin.php',
+                'doxer\\plugins\\project\\model\\project' => '/plugins/project/model/project.php',
+                'doxer\\plugins\\project\\model\\section' => '/plugins/project/model/section.php',
+                'doxer\\plugins\\project\\projectcontroller' => '/plugins/project/ProjectController.php',
+                'doxer\\plugins\\project\\sectioncontroller' => '/plugins/project/SectionController.php',
+                'doxer\\plugins\\user\\model\\user' => '/plugins/user/model/user.php',
+                'markdown_parser' => '/phplib/markdown.php',
+                'markdownextra_parser' => '/phplib/markdown.php',
+                'marshall\\core\\basecontroller' => '/core/BaseController.php',
+                'marshall\\core\\baseplugin' => '/core/BasePlugin.php',
+                'marshall\\core\\menu' => '/core/Menu.php',
+                'marshall\\core\\menuitem' => '/core/MenuItem.php',
+                'marshall\\core\\nonpersistentbean' => '/core/NonPersistentBean.php',
+                'marshall\\core\\session' => '/core/session.php',
+                'textile' => '/phplib/markdown.php'
             );
         }
         $cn = strtolower($class);

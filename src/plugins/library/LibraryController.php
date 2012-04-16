@@ -1,7 +1,7 @@
 <?php
 
-	namespace doxer\controllers\library;
-	use \doxer\controllers\BaseController as BaseController;
+	namespace doxer\plugins\library;
+	use \marshall\core\BaseController as BaseController;
 	use \F3 as F3;
 	use \Template as Template;
 
@@ -23,9 +23,9 @@
 
 		function home(){
 			F3::set('html_title', $this->session->get('libraryName'));
-			F3::set('subNav', 'library/head.html');
-			F3::set('content','library/home.html');
-			echo Template::serve('layout/site.html');
+			F3::set('subNav', 'library/views/head.html');
+			F3::set('content','library/views/home.html');
+			echo Template::serve('core/layout/site.html');
 		}
 	}
 ?>

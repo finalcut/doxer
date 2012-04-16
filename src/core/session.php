@@ -1,5 +1,5 @@
 <?php
-	namespace doxer\model;
+	namespace marshall\core;
 		class Session {
 
 			public function get($key){

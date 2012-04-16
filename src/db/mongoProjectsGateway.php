@@ -2,9 +2,9 @@
 
 	namespace doxer\db;
 	use \doxer\db\IProjectsGateway as IProjectsGateway;
-	use \doxer\model\Project as Project;
-	use \doxer\model\Section as Section;
-	use \doxer\model\Library as Library;
+	use \doxer\plugins\project\model\Project as Project;
+	use \doxer\plugins\project\model\Section as Section;
+	use \doxer\plugins\library\model\Library as Library;
 	use \Mongo as Mongo;
 	use \MongoId as MongoId;
 
@@ -159,46 +159,6 @@
 			$section->_id = $data["_id"];
 			return $section;
 		}
-
-
-		public function saveLibrary($libraryName){
-			$mongoDB = new Mongo();
-			$db = $mongoDB->selectDB($this->vars["name"]);
-			$db->createCollection($libraryName);
-			return new Library($libraryName);
-
-		}
-
-		public function getLibraries(){ // basically treating a collection as a schema sort of to separate projects by organization.
-			$mongoDB = new Mongo();
-			$db = $mongoDB->selectDB($this->vars["name"]);
-			$cols = $db->listCollections();
-
-			$libraries = array();
-
-			foreach($cols as $collection){
-				
-				// name comes out in format db.collection so we need to remove the db. part of the name..
-				$name = $collection . "";
-				$parts = explode(".", $name);
-				$name = $parts[1];
-
-
-
-				$c = new Library($name);
-				array_push($libraries, $c);
-			}
-			usort($libraries, array("\doxer\model\Library","compare"));
-
-
-			return $libraries;
-		}
-
-
-		static function libraryCompare($a, $b){
-			return strcmp($a->name, $b->name); 
-		}
-
 
 		function dump($var, $abort=false){
 			print_r("<pre>");

@@ -1,7 +1,7 @@
 
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
-        <div class="container-fluid">
+        <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -10,48 +10,26 @@
           <a class="brand" href="{{@relroot}}">{{@projectname}}</a>
           <div class="nav-collapse">
             <ul class="nav">
-        				<li {{@PARAMS[0]=='/'?'class="active"':''}}><a href="{{@relroot}}"><i class="icon-home icon-white"></i>&nbsp;Home</a></li>
+                <F3:repeat group="{{@menu}}" value="{{@el}}">
+                <F3:check if="{{count(@el->children) > 0}}">
+                    <F3:true>
+                      <li {{strpos(@PARAMS[0],@el->root_path) === 0 ?'class="dropdown active"':'class="dropdown"'}}>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="{{@el->icon}} icon-white"></i>&nbsp;{{@el->name}}<b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                      <F3:repeat group="{{@el->children}}" value="{{@child}}">
+                        <li {{@PARAMS[0]== @child->root_path ?'class="active"':''}}><a href="{{@relroot}}{{@child->root_path}}"><i class="{{@child->icon}}"></i>&nbsp;{{@child->name}}</a></li>
+                      </F3:repeat>
+                      </ul>
+                    </li>
+                    </F3:true>
+                    <F3:false>
+                      <li {{@PARAMS[0]== @el->root_path ?'class="active"':''}}><a href="{{@relroot}}{{@el->root_path}}"><i class="{{@el->icon}} icon-white"></i>&nbsp;{{@el->name}}</a></li>
+                    </F3:false>
+                  </F3:check>
+                  <li class="divider-vertical"></li>
 
-                <li class="divider-vertical"></li>
-                <li class="dropdown">
-                <F3:check if="{{@libraryName != false}}">
-                  <F3:true>
-                   <a class="dropdown-toggle active" data-toggle="dropdown"><i class="icon-book icon-white"></i>&nbsp;Libraries: {{@libraryName}}<b class="caret"></b></a>
-                  </F3:true>
-                  <F3:false>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-right icon-white"></i>&nbsp;Libraries<b class="caret"></b></a>
-                  </F3:false>
-                </F3:check>
-                  <ul class="dropdown-menu">
-                    <F3:repeat group="{{@libraries}}" value="{{@library}}" counter="{{@counter}}">
-                      <li><a href="{{@relroot}}/library/load/{{@library->name}}">{{@library->name}}</a></li>
-                    </F3:repeat>
-                  </ul>
-                </li>
+                </F3:repeat>
 
-
-                <F3:check if="{{@libraryName != false}}">
-
-                <li class="divider-vertical"></li>
-                <li class="dropdown">
-                <F3:check if="{{@projectName != false}}">
-                  <F3:true>
-                   <a class="dropdown-toggle active" data-toggle="dropdown"><i class="icon-book icon-white"></i>&nbsp;Projects: {{@projectName}}<b class="caret"></b></a>
-                  </F3:true>
-                  <F3:false>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-chevron-right icon-white"></i>&nbsp;Projects<b class="caret"></b></a>
-                  </F3:false>
-                </F3:check>
-                  <ul class="dropdown-menu">
-                    <F3:repeat group="{{@projects}}" value="{{@project}}" counter="{{@cntr}}">
-                      <li><a href="{{@relroot}}/{{@libraryName}}/{{@project->name}}">{{@project->name}}</a></li>
-                    </F3:repeat>
-                  </ul>
-                </li>
-                </F3:check>
-                
-
-                <li {{@PARAMS[0]=='/install'?'class="active"':''}}><a href="{{@relroot}}/install"><i class="icon-download-alt icon-white"></i>&nbsp;Install</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

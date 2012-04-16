@@ -4,9 +4,9 @@
 		that each controller will probably need.
 	*/ 
 
-	namespace doxer\controllers;
+	namespace marshall\core;
 
-	use \doxer\model\Session as Session;
+	use \marshall\core\Session as Session;
 	use \doxer\db\GatewayFactory as GatewayFactory;
 	use \F3 as F3;
 	use \Template as Template;
@@ -17,14 +17,6 @@
 
 		public function __construct(){
 			$this->session = new Session();
-			$libraryName = $this->session->get("libraryName");
-			F3::set('libraryName', $libraryName);
-			if($libraryName != ''){
-				// get list of all projects in the current library..
-				$db = $this->getDB($this->session->get("libraryName"));
-				$projects = $db->getProjects();
-				F3::set('projects', $projects);
-			}
 		}
 
 
@@ -37,17 +29,6 @@
 		}
 
 		function beforeRoute(){
-			// gets executed before the current route..
-			$db = $this->getDB();
-
-
-			$libs  = $db->getLibraries();
-			if(count($libs) == 0){
-				$newLib = $db->saveLibrary('Default');
-				array_push($newLib);
-			}
-
-			F3::set('libraries', $libs);
 		}
 
 		function afterRoute(){

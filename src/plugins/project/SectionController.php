@@ -1,9 +1,8 @@
 <?php
-	namespace doxer\controllers\section;
-
-	use \doxer\controllers\BaseController as BaseController;
-	use \doxer\model\Project as Project;
-	use \doxer\model\Section as Section;
+	namespace doxer\plugins\project;
+	use \marshall\core\BaseController as BaseController;
+	use \doxer\plugins\project\model\Project as Project;
+	use \doxer\plugins\project\model\Section as Section;
 	use \F3 as F3;
 	use \Template as Template;
 
@@ -33,10 +32,10 @@
 			F3::set('html_title', $section == false ? "New Section" : "Edit " . $section->name);
 
 
-			F3::set('content', 'project/sectionForm.html');
-			$this->addF3Script('project/js/sectionForm.js');
+			F3::set('content', 'project/views/sectionForm.html');
+			$this->addF3Script('project/views/js/sectionForm.js');
 
-			echo Template::serve('layout/site.html');
+			echo Template::serve('core/layout/site.html');
 		}
 
 
