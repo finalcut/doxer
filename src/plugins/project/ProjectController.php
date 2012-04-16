@@ -28,7 +28,7 @@
 		}
 
 
-		function foo(){
+		function home(){
 			F3::set('html_title', "Project: " . $this->session->get('projectName'));
 			F3::set('subNav', 'project/views/head.html');
 			F3::set('content','project/views/render.html');

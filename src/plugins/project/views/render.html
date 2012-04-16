@@ -7,4 +7,10 @@
 		</F3:true>
 	</F3:check>
 </div>
-<F3
+
+<F3:repeat group="{{@project->sections}}" value="{{@section}}">
+	<div id="{{@section->_id}}">
+		<h2>{{@section->name}}</h2>
+		{{@section->body_html}}
+	</div>
+</F3:repeat>

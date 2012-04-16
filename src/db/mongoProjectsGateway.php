@@ -109,13 +109,14 @@
 			$proj = $collection->findOne(array('name' => $projectName, 'type'=>'project'));
 			$project = $this->readProject($proj);
 			$project->sections = $this->getSectionsForParent($project->_id);
-			return $this->readProject($proj);
+			return $project;
 		}
 
 
 		private function getSectionsForParent($id){
 			$collection = $this->getCollection();
 			$sec = $collection->find(array('parent_id'=>$id));
+
 			$sections = array();
 			foreach($sec as $s){
 				$section = $this->readSection($s);

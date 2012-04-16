@@ -63,6 +63,7 @@
 		private function setLibrary(){
 			$this->session = new Session();
 			$this->thisLibrary = $this->session->get("libraryName");
+			F3::set("libraryName", $this->thisLibrary);
 		}
 
 		private function getDB($libraryName=""){

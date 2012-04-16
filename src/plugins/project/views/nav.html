@@ -1,9 +1,29 @@
+
+
 <div class="well sidebar-nav">
 	<ul class="nav nav-list">
-		<F3:repeat group="{{@project->sections}}" value="{{@section}}" counter="{{@cntr}}">
-			<li><a href="#">{{@section->name}}</a></li>
-		</F3:repeat>
+		<li><a href="#">Top</a>
+			<F3:check if="{{count(@project->sections) > 0}}">
+			<ul>
+				<F3:repeat group="{{@project->sections}}" value="{{@section}}" counter="{{@cntr}}">
+					<li>
+						<a href="#">{{@section->name}}</a>
+						<F3:check if="{{count(@section->sections) > 0}}">
+							<ul>
+								<F3:repeat group="{{@section->sections}}" value="{{@child}}" counter="{{@child_cntr}}">
+									<li>
+										<a href="#">{{@child->name}}</a>
+									</li>
+								</F3:repeat>
+							</ul>
+						</F3:check> 
+					</li>
+				</F3:repeat>
+			</ul>
+			</F3:check>
+		</li>
 	</ul>
+
 	<F3:check if="{{@editmode == true}}">
 		<F3::true>
 			<p><a href="#"><i class="icon-plus-sign"></i>&nbsp;Add Section</a></p>

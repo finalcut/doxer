@@ -25,7 +25,11 @@
 			F3::set('section', $section);
 		}
 
+		function beforeRoute(){
+			F3::set("libraryName", F3::get("PARAMS['libraryName']"));
+			F3::set("projectName", F3::get("PARAMS['projectName']"));
 
+		}
 		function form(){
 			$section = \F3::get('section');
 
@@ -39,29 +43,29 @@
 		}
 
 
+
 		// just tweaks the title and description texts..
 		function save(){
-			$data = \F3::get('POST');
-			$data['id'] = $data['projectId'] == "" ? 0 : $data['projectId'];
-
-
+			$data = F3::get('POST');
 			$db = $this->getDB($this->session->get("libraryName"));
 
-/*
-	TODO: figure out how to save a specific section somewhere in the document.
-			$project = $db->getProject($data['projectId']);
+
+			$data['_id'] = $data['_id'] == "" ? 0 : $data['_id'];
+			$section = $db->getSection($data['_id']);
+			$project = $db->getProjectByName(F3::get("projectName"));
+			$data['parent_id'] = $project->_id;
 
 
+			$data['body_html'] = markdown($data['body_md']);
 
-			$data['description_html'] = markdown($data['description_md']);
+			$section->initPropertiesFromArray($data);
+			$section = $db->saveSection($section);
 
-			$project->initPropertiesFromArray($data);
-			$project = $db->saveProject($project);
-
-			\F3::reroute('/' . \F3::get('libraryName') . '/' . $project->name);
-*/
+			F3::reroute('/' . F3::get('libraryName') . '/' . F3::get("projectName"));
 
 		}
+
+
 
 		
 	}
