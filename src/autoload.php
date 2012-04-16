@@ -18,6 +18,7 @@ spl_autoload_register(
                 'doxer\\plugins\\library\\librarycontroller' => '/plugins/library/LibraryController.php',
                 'doxer\\plugins\\library\\model\\library' => '/plugins/library/model/library.php',
                 'doxer\\plugins\\project\\_plugin' => '/plugins/project/_plugin.php',
+                'doxer\\plugins\\project\\exceptions\\orphanedsectionexception' => '/plugins/project/exceptions/OrphanedSectionException.php',
                 'doxer\\plugins\\project\\model\\project' => '/plugins/project/model/project.php',
                 'doxer\\plugins\\project\\model\\section' => '/plugins/project/model/section.php',
                 'doxer\\plugins\\project\\projectcontroller' => '/plugins/project/ProjectController.php',

@@ -5,6 +5,7 @@
 	use \doxer\plugins\project\model\Project as Project;
 	use \doxer\plugins\project\model\Section as Section;
 	use \doxer\plugins\library\model\Library as Library;
+	use \doxer\plugins\project\exceptions\OrphanedSectionException as OrphanedSectionException;
 	use \Mongo as Mongo;
 	use \MongoId as MongoId;
 
@@ -115,6 +116,7 @@
 
 		private function getSectionsForParent($id){
 			$collection = $this->getCollection();
+
 			$sec = $collection->find(array('parent_id'=>$id));
 
 			$sections = array();
@@ -150,15 +152,20 @@
 		}
 
 		public function saveSection($section){
-			$col = $this->getCollection();
-			$data = $section->toArray();
-			unset($data["sections"]);
-			if($data["_id"] == "")
-				unset($data["_id"]);
 
-			$ret = $col->save($data);
-			$section->_id = $data["_id"];
-			return $section;
+			if(strlen(trim($section->parent_id)) > 0 ){
+				$col = $this->getCollection();
+				$data = $section->toArray();
+				unset($data["sections"]);
+				if($data["_id"] == "")
+					unset($data["_id"]);
+
+				$ret = $col->save($data);
+				$section->_id = $data["_id"];
+				return $section;
+			} else {
+				throw new OrphanedSectionException();				
+			}
 		}
 
 		function dump($var, $abort=false){

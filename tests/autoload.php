@@ -7,10 +7,12 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
-                'gatewayfactorytests' => '/unit/db/gatewayFactoryTests.php',
-                'mongogatewaytests' => '/unit/db/mongoGatewayTests.php',
-                'sessiontests' => '/unit/model/sessionTests.php',
-                'userstests' => '/unit/model/usersTests.php'
+                'gatewayfactorytest' => '/unit/db/gatewayFactoryTests.php',
+                'mongolibrarygatewaytest' => '/unit/db/mongoLibraryGatewayTests.php',
+                'mongoprojectgatewaytest' => '/unit/db/mongoProjectGatewayTests.php',
+                'orphanedsectionexceptiontests' => '/unit/plugins/project/exceptions/OrphanedSectionExceptionTests.php',
+                'sessiontest' => '/unit/model/sessionTests.php',
+                'usertest' => '/unit/model/usersTests.php'
             );
         }
         $cn = strtolower($class);
