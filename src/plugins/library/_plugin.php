@@ -81,7 +81,7 @@
 			$libs  = $db->getLibraries();
 			if(count($libs) == 0){
 				$newLib = $db->saveLibrary('Default');
-				array_push($newLib);
+				array_push($libs,$newLib);
 			}
 
 			$this->libs = $libs;
