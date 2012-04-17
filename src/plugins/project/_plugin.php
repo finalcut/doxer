@@ -40,15 +40,17 @@
 			$node->sort_order = 30;
 
 			$so = 10;
-			foreach($this->prjs as $key => $prj){
+			if($this->prjs != null){
+				foreach($this->prjs as $key => $prj){
 
-				$child = new MenuItem();
-				$child->name = $prj->name;
-				$child->root_path="/$this->lib/$prj->name";
-				$child->icon = '';
-				$child->sort_order = $so;
-				$so = $so + 10;
-				$node ->addMenuItem($child);
+					$child = new MenuItem();
+					$child->name = $prj->name;
+					$child->root_path="/$this->lib/$prj->name";
+					$child->icon = '';
+					$child->sort_order = $so;
+					$so = $so + 10;
+					$node ->addMenuItem($child);
+				}
 			}
 			Menu::addMenu($node);
 		}
