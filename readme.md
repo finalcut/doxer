@@ -58,6 +58,7 @@ I use jenkins as my Continuous Integration Server and I based my initial efforts
 1. Install php-timer - https://github.com/sebastianbergmann/php-timer
 1. Install php code sniffer - http://pear.php.net/package/PHP_CodeSniffer/download
 1. install php code browser - http://blog.mayflower.de/archives/464-PHP_CodeBrowser-Release-version-0.1.0.html
+1. install php dox - https://github.com/theseer/phpdox
 
 I know, that's a lot of stuff.  But it is useful for a lot of projects other than this one (well, PHP projects at least).   If you don't want to install it all then just grab PHP Unit and when you build specify `ant phpunit` and it will just run the unit tests during the build process.
 
@@ -104,7 +105,7 @@ Both _routes.php and _plugin.php are called before the F3 subsystem does it's ma
 
 
 [pd]:https://www.parse.com/docs/ios_guide
-[f3]:http://sourceforge.net/projects/fatfree/files/
+[f3]:http://bcosca.github.com/fatfree/
 [bs]:https://github.com/twitter/bootstrap/tags
 [mongo]:http://www.mongodb.org/
 [phpdriver]:http://www.mongodb.org/display/DOCS/PHP+Language+Center
